@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,15 @@
 		C6AD513B25C4362B001D391B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6AD513925C4362B001D391B /* Main.storyboard */; };
 		C6AD513D25C4362D001D391B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6AD513C25C4362D001D391B /* Assets.xcassets */; };
 		C6AD514025C4362D001D391B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6AD513E25C4362D001D391B /* LaunchScreen.storyboard */; };
+		C6AD514A25C436F6001D391B /* ATAGroup in Frameworks */ = {isa = PBXBuildFile; productRef = C6AD514925C436F6001D391B /* ATAGroup */; };
+		C6AD515725C4452F001D391B /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD514F25C4452E001D391B /* Poppins-ExtraLight.ttf */; };
+		C6AD515825C4452F001D391B /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515025C4452E001D391B /* Poppins-Light.ttf */; };
+		C6AD515925C4452F001D391B /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515125C4452E001D391B /* Poppins-Medium.ttf */; };
+		C6AD515A25C4452F001D391B /* Poppins.json in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515225C4452E001D391B /* Poppins.json */; };
+		C6AD515B25C4452F001D391B /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515325C4452E001D391B /* Poppins-Regular.ttf */; };
+		C6AD515C25C4452F001D391B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515425C4452E001D391B /* Poppins-Bold.ttf */; };
+		C6AD515D25C4452F001D391B /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515525C4452E001D391B /* Poppins-Thin.ttf */; };
+		C6AD515E25C4452F001D391B /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AD515625C4452E001D391B /* Poppins-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +33,15 @@
 		C6AD513C25C4362D001D391B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6AD513F25C4362D001D391B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6AD514125C4362D001D391B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6AD514C25C436FD001D391B /* ATAGroup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ATAGroup; path = ..; sourceTree = "<group>"; };
+		C6AD514F25C4452E001D391B /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C6AD515025C4452E001D391B /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		C6AD515125C4452E001D391B /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		C6AD515225C4452E001D391B /* Poppins.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Poppins.json; sourceTree = "<group>"; };
+		C6AD515325C4452E001D391B /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		C6AD515425C4452E001D391B /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		C6AD515525C4452E001D391B /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		C6AD515625C4452E001D391B /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6AD514A25C436F6001D391B /* ATAGroup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +59,7 @@
 		C6AD512725C4362B001D391B = {
 			isa = PBXGroup;
 			children = (
+				C6AD514C25C436FD001D391B /* ATAGroup */,
 				C6AD513225C4362B001D391B /* ios-example */,
 				C6AD513125C4362B001D391B /* Products */,
 			);
@@ -56,6 +76,7 @@
 		C6AD513225C4362B001D391B /* ios-example */ = {
 			isa = PBXGroup;
 			children = (
+				C6AD514E25C4452E001D391B /* Fonts */,
 				C6AD513325C4362B001D391B /* AppDelegate.swift */,
 				C6AD513525C4362B001D391B /* SceneDelegate.swift */,
 				C6AD513725C4362B001D391B /* ViewController.swift */,
@@ -65,6 +86,21 @@
 				C6AD514125C4362D001D391B /* Info.plist */,
 			);
 			path = "ios-example";
+			sourceTree = "<group>";
+		};
+		C6AD514E25C4452E001D391B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C6AD514F25C4452E001D391B /* Poppins-ExtraLight.ttf */,
+				C6AD515025C4452E001D391B /* Poppins-Light.ttf */,
+				C6AD515125C4452E001D391B /* Poppins-Medium.ttf */,
+				C6AD515225C4452E001D391B /* Poppins.json */,
+				C6AD515325C4452E001D391B /* Poppins-Regular.ttf */,
+				C6AD515425C4452E001D391B /* Poppins-Bold.ttf */,
+				C6AD515525C4452E001D391B /* Poppins-Thin.ttf */,
+				C6AD515625C4452E001D391B /* Poppins-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +119,9 @@
 			dependencies = (
 			);
 			name = "ios-example";
+			packageProductDependencies = (
+				C6AD514925C436F6001D391B /* ATAGroup */,
+			);
 			productName = "ios-example";
 			productReference = C6AD513025C4362B001D391B /* ios-example.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +149,9 @@
 				Base,
 			);
 			mainGroup = C6AD512725C4362B001D391B;
+			packageReferences = (
+				C6AD514825C436F6001D391B /* XCRemoteSwiftPackageReference "ATAGroup" */,
+			);
 			productRefGroup = C6AD513125C4362B001D391B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -124,9 +166,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6AD515725C4452F001D391B /* Poppins-ExtraLight.ttf in Resources */,
+				C6AD515C25C4452F001D391B /* Poppins-Bold.ttf in Resources */,
+				C6AD515E25C4452F001D391B /* Poppins-SemiBold.ttf in Resources */,
+				C6AD515825C4452F001D391B /* Poppins-Light.ttf in Resources */,
 				C6AD514025C4362D001D391B /* LaunchScreen.storyboard in Resources */,
+				C6AD515925C4452F001D391B /* Poppins-Medium.ttf in Resources */,
 				C6AD513D25C4362D001D391B /* Assets.xcassets in Resources */,
 				C6AD513B25C4362B001D391B /* Main.storyboard in Resources */,
+				C6AD515A25C4452F001D391B /* Poppins.json in Resources */,
+				C6AD515B25C4452F001D391B /* Poppins-Regular.ttf in Resources */,
+				C6AD515D25C4452F001D391B /* Poppins-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +391,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C6AD514825C436F6001D391B /* XCRemoteSwiftPackageReference "ATAGroup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jerometonnelier/ATAGroup";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C6AD514925C436F6001D391B /* ATAGroup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C6AD514825C436F6001D391B /* XCRemoteSwiftPackageReference "ATAGroup" */;
+			productName = ATAGroup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C6AD512825C4362B001D391B /* Project object */;
 }

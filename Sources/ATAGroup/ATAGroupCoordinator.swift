@@ -3,7 +3,7 @@ import KCoordinatorKit
 import PromiseKit
 import ATAConfiguration
 
-protocol GroupDatasource: class {
+public protocol GroupDatasource: class {
     func refresh() -> Promise<[Group]>
     func create(group: Group) -> Promise<Group>
     func update(group: Group) -> Promise<Group>
@@ -18,18 +18,36 @@ protocol GroupCoordinatorDelegate: class {
     func addNewMember(in group: Group)
 }
 
-class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
+public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
     weak var dataSource: GroupDatasource!
-    init(dataSource: GroupDatasource, configuration: ATAConfiguration, router: RouterType) {
+    var controller: GroupListViewController!
+    public init(groups: [Group],
+         dataSource: GroupDatasource,
+         configuration: ATAConfiguration,
+         router: RouterType) {
         super.init(router: router)
         self.dataSource = dataSource
+        controller = GroupListViewController.create(groups: groups, configuration: configuration)
+        
+        dataSource
+            .refresh()
+            .done { [weak self] groups in
+                self?.controller.update(groups)
+            }.catch { [weak self] error in
+                //TODO
+                self?.controller.refreshComplete()
+            }
+    }
+    
+    public override func toPresentable() -> UIViewController {
+        controller
     }
 }
 
 extension ATAGroupCoordinator: GroupDatasource {
-    func refresh() -> Promise<[Group]> { dataSource.refresh() }
+    public func refresh() -> Promise<[Group]> { dataSource.refresh() }
     
-    func create(group: Group) -> Promise<Group> {
+    public func create(group: Group) -> Promise<Group> {
         dataSource
             .create(group: group)
             .get { [weak self] group in
@@ -37,7 +55,7 @@ extension ATAGroupCoordinator: GroupDatasource {
             }
     }
     
-    func update(group: Group) -> Promise<Group> {
+    public func update(group: Group) -> Promise<Group> {
         dataSource
             .update(group: group)
 //            .get { [weak self] group in
@@ -45,7 +63,7 @@ extension ATAGroupCoordinator: GroupDatasource {
 //            }
     }
     
-    func delete(group: Group) -> Promise<Bool> {
+    public func delete(group: Group) -> Promise<Bool> {
         dataSource
             .delete(group: group)
             .get { [weak self] group in
@@ -53,7 +71,7 @@ extension ATAGroupCoordinator: GroupDatasource {
             }
     }
     
-    func add(member: GroupMember, to group: Group) -> Promise<GroupMember> {
+    public func add(member: GroupMember, to group: Group) -> Promise<GroupMember> {
         dataSource
             .add(member: member, to: group)
 //            .get { [weak self] member in
@@ -61,7 +79,7 @@ extension ATAGroupCoordinator: GroupDatasource {
 //            }
     }
     
-    func remove(member: GroupMember, from group: Group) -> Promise<Bool> {
+    public func remove(member: GroupMember, from group: Group) -> Promise<Bool> {
         dataSource
             .remove(member: member, from: group)
 //            .get { [weak self] member in

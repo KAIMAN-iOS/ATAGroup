@@ -27,11 +27,34 @@ class GroupListViewController: UIViewController {
     var datasource: GroupListViewModel.DataSource!
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "My groups".bundleLocale().capitalized
         hideBackButtonText = true
         collectionView.collectionViewLayout = viewModel.layout()
         datasource = viewModel.dataSource(for: collectionView)
         collectionView.dataSource = datasource
         viewModel.applySnapshot(in: datasource)
+        startLoading()
+    }
+    
+    private func startLoading() {
+        let activity = UIActivityIndicatorView(style: .medium)
+        activity.color = GroupListViewController.configuration.palette.primary
+        activity.startAnimating()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activity)
+    }
+    
+    func refreshComplete() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+ add new group".bundleLocale(), style: .plain, target: self, action: #selector(addNewGroup))
+    }
+    
+    func update(_ groups: [Group]) {
+        viewModel.update(groups)
+        refreshComplete()
+    }
+    
+    @objc func addNewGroup() {
+        
     }
 }
 
