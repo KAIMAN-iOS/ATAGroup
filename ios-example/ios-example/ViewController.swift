@@ -52,7 +52,7 @@ class ViewController: UIViewController {
 extension ViewController: GroupDatasource {
     func refresh() -> Promise<[Group]> {
         Promise<[Group]>.init { resolver in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 guard let self = self else { return }
                 self.groups.append(Group.testGroup3)
                 self.groups.append(Group.testGroup4)

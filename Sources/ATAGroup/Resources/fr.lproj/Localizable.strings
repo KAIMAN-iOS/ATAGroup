@@ -3,3 +3,10 @@
 "group list disclaimer" = "Travaillez ensemble : créez un ou plusieurs groupes de chauffeurs pour échangerdes courses, travailler en sécurité.\n3 types de groupes : Groupement juridique (GIE ou groupement juridique), Groupe de collègues (groupes de chauffeurs indépendants), Groupe de Sécurité (chauffeurs qui seront alertés en appuyant sur le bouton SOS de votre application ou taximètre)";
 "My groups" = "Mes groupes";
 "+ add new group" = "+ Ajouter un nouveau groupe";
+"pending" = "En attente de validation";
+"validated" = "actif";
+"deleted" = "Supprimé";
+"delete group" = "supprimer le groupe";
+"group creation date" = "Créé le %@";
+"update document" = "modifier le document";
+"add member" = "+ Ajouter un membre";

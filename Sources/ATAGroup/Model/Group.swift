@@ -7,10 +7,28 @@
 
 import UIKit
 import ColorExtension
+import ATAConfiguration
+import DateExtension
 
 public enum MemberStatus: Int, CaseIterable, Codable {
     case pending = 0, validated, deleted
     public static var random: MemberStatus { MemberStatus.init(rawValue: Int.random(in: 0...2)) ?? .pending }
+    
+    var title: String {
+        switch self {
+        case .pending: return "pending".bundleLocale()
+        case .validated: return "validated".bundleLocale()
+        case .deleted: return "deleted".bundleLocale()
+        }
+    }
+    
+    var color: UIColor? {
+        switch self {
+        case .pending: return GroupListViewController.configuration.palette.action
+        case .validated: return GroupListViewController.configuration.palette.confirmation
+        case .deleted: return  GroupListViewController.configuration.palette.primary
+        }
+    }
 }
 
 public struct GroupMember: Codable {
@@ -89,7 +107,7 @@ public struct Group: Codable {
     var status: GroupStatus = .pending
     var documentUrl: URL?
     var documentName: String?
-    var creationDate: Date = Date()
+    var creationDate: CustomDate<ISODateFormatterDecodable> = CustomDate<ISODateFormatterDecodable>.init(date: Date())
     var members: [GroupMember] = []
     var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
@@ -105,7 +123,7 @@ public struct Group: Codable {
         self.status = GroupStatus.random
         self.documentUrl = documentUrl
         self.documentName = documentName
-        self.creationDate = creationDate
+        self.creationDate = CustomDate<ISODateFormatterDecodable>.init(date: creationDate)
         self.members = members
     }
     

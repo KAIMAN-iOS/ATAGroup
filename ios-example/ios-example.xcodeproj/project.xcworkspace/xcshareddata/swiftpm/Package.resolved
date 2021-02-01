@@ -29,15 +29,6 @@
         }
       },
       {
-        "package": "ATAGroup",
-        "repositoryURL": "https://github.com/jerometonnelier/ATAGroup",
-        "state": {
-          "branch": "master",
-          "revision": "3bb1f82a20da7eb1218b2c97879c60a7c722d391",
-          "version": null
-        }
-      },
-      {
         "package": "FittedSheets",
         "repositoryURL": "https://github.com/gordontucker/FittedSheets",
         "state": {
@@ -107,6 +98,15 @@
           "branch": null,
           "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "SwipeCellKit",
+        "repositoryURL": "https://github.com/SwipeCellKit/SwipeCellKit",
+        "state": {
+          "branch": null,
+          "revision": "7219cad3098637176ace311510d11467dbfb9bb0",
+          "version": "2.7.1"
         }
       },
       {

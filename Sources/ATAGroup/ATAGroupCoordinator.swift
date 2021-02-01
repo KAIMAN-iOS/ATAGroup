@@ -3,7 +3,7 @@ import KCoordinatorKit
 import PromiseKit
 import ATAConfiguration
 
-public protocol GroupDatasource: class {
+public protocol GroupDatasource: NSObjectProtocol {
     func refresh() -> Promise<[Group]>
     func create(group: Group) -> Promise<Group>
     func update(group: Group) -> Promise<Group>
@@ -12,7 +12,7 @@ public protocol GroupDatasource: class {
     func remove(member: GroupMember, from group: Group) -> Promise<Bool>
 }
 
-protocol GroupCoordinatorDelegate: class {
+protocol GroupCoordinatorDelegate: NSObjectProtocol {
     func addNewGroup()
     func showDetail(for group: Group)
     func addNewMember(in group: Group)
@@ -27,7 +27,7 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
          router: RouterType) {
         super.init(router: router)
         self.dataSource = dataSource
-        controller = GroupListViewController.create(groups: groups, configuration: configuration)
+        controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self)
         
         dataSource
             .refresh()
@@ -93,6 +93,8 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     }
     
     func showDetail(for group: Group) {
+        let ctrl = GroupDetailViewController.create(group: group, delegate: self)
+        router.push(ctrl, animated: true, completion: nil)
     }
     
     func addNewMember(in group: Group) {

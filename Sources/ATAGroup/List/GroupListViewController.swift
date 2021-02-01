@@ -11,12 +11,14 @@ import ATAConfiguration
 
 class GroupListViewController: UIViewController {
     static var configuration: ATAConfiguration!
-    static func create(groups: [Group], configuration: ATAConfiguration) -> GroupListViewController {
+    static func create(groups: [Group], configuration: ATAConfiguration, delegate: GroupCoordinatorDelegate) -> GroupListViewController {
         GroupListViewController.configuration = configuration
         let ctrl: GroupListViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "GroupListViewController") as! GroupListViewController
         ctrl.viewModel = GroupListViewModel(groups: groups)
+        ctrl.coordinatorDelegate = delegate
         return ctrl
     }
+    weak var coordinatorDelegate: GroupCoordinatorDelegate?
     
     var viewModel: GroupListViewModel!
     @IBOutlet weak var collectionView: UICollectionView!  {
@@ -60,6 +62,7 @@ class GroupListViewController: UIViewController {
 
 extension GroupListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard let group = datasource.itemIdentifier(for: indexPath) else { return }
+        coordinatorDelegate?.showDetail(for: group)
     }
 }
