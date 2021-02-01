@@ -531,6 +531,7 @@
                     <size key="freeformSize" width="414" height="252"/>
                     <connections>
                         <outlet property="addButton" destination="eZu-Xb-oh3" id="LFO-D0-JU3"/>
+                        <outlet property="textField" destination="6kf-T3-Um4" id="WOJ-4K-960"/>
                         <outlet property="titleLabel" destination="Vga-CH-kVa" id="gd4-AV-2rO"/>
                     </connections>
                 </viewController>

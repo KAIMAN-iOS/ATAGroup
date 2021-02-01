@@ -38,11 +38,11 @@ public struct GroupMember: Codable {
     var location: String?
     var status: MemberStatus
     
-    init(email: String,
-         name: String?,
-         vehicle: String?,
-         location: String?,
-         status: MemberStatus) {
+    public init(email: String,
+         name: String? = nil,
+         vehicle: String? = nil,
+         location: String? = nil,
+         status: MemberStatus = .pending) {
         self.email = email
         self.name = name
         self.vehicle = vehicle

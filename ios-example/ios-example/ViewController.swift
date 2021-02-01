@@ -79,9 +79,20 @@ extension ViewController: GroupDatasource {
         }
     }
     
+    enum AddError: Error {
+        case cantAddMemeber
+    }
+    
     func add(member: String, to group: Group) -> Promise<GroupMember> {
         Promise<GroupMember>.init { resolver in
-            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let success = Int.random(in: 0...1) == 0
+                if success {
+                    resolver.fulfill(GroupMember(email: member))
+                } else {
+                    resolver.reject(AddError.cantAddMemeber)
+                }
+            }
         }
     }
     
