@@ -9,6 +9,7 @@ import UIKit
 import Ampersand
 import LabelExtension
 import ATAConfiguration
+import SwipeCellKit
 
 class GroupDetailMemberCell: UICollectionViewCell {
     @IBOutlet weak var stateContainer: UIView!  {

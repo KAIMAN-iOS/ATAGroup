@@ -79,7 +79,7 @@ extension ViewController: GroupDatasource {
         }
     }
     
-    func add(member: GroupMember, to group: Group) -> Promise<GroupMember> {
+    func add(member: String, to group: Group) -> Promise<GroupMember> {
         Promise<GroupMember>.init { resolver in
             
         }

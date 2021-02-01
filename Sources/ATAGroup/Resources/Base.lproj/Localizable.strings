@@ -10,3 +10,6 @@
 "group creation date" = "Created the %@";
 "update document" = "update document";
 "add member" = "+ Add new member";
+"add member title" = "Nouveau membre";
+"add member button" = "Ajouter un membre";
+"email" = "Nouveau email";

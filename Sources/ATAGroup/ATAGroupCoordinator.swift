@@ -2,13 +2,14 @@ import UIKit
 import KCoordinatorKit
 import PromiseKit
 import ATAConfiguration
+import FittedSheets
 
 public protocol GroupDatasource: NSObjectProtocol {
     func refresh() -> Promise<[Group]>
     func create(group: Group) -> Promise<Group>
     func update(group: Group) -> Promise<Group>
     func delete(group: Group) -> Promise<Bool>
-    func add(member: GroupMember, to group: Group) -> Promise<GroupMember>
+    func add(member: String, to group: Group) -> Promise<GroupMember>
     func remove(member: GroupMember, from group: Group) -> Promise<Bool>
 }
 
@@ -42,6 +43,31 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
     public override func toPresentable() -> UIViewController {
         controller
     }
+    
+    func presentController(_ controllerToPresent: UIViewController,
+                           blurEffect: UIBlurEffect = .init(style: .dark)) {
+        let options = SheetOptions(useFullScreenMode: false, shrinkPresentingViewController: false)
+        let sheet = SheetViewController(controller: controllerToPresent, sizes: [.intrinsic], options: options)
+        sheet.cornerRadius = 25.0
+        sheet.allowPullingPastMaxHeight = false
+        sheet.overlayColor = .clear
+        sheet.blurEffect = blurEffect
+        sheet.hasBlurBackground = true
+        (router.navigationController.topViewController ?? controller).present(sheet, animated: true, completion: nil)
+    }
+}
+
+extension ATAGroupCoordinator: AddMemberDelegate {
+    func add(_ email: String, to group: Group, completion: (() -> Void)?) {
+        add(member: email, to: group)
+            .done { [weak self] member in
+                (self?.router.navigationController.topViewController ?? self?.controller)?.dismiss(animated: true, completion: nil)
+                guard let detailController = self?.router.navigationController.topViewController as? GroupDetailViewController else { return }
+                detailController.didAdd(member)
+            }.catch { error in
+                completion?()
+            }
+    }
 }
 
 extension ATAGroupCoordinator: GroupDatasource {
@@ -71,7 +97,7 @@ extension ATAGroupCoordinator: GroupDatasource {
             }
     }
     
-    public func add(member: GroupMember, to group: Group) -> Promise<GroupMember> {
+    public func add(member: String, to group: Group) -> Promise<GroupMember> {
         dataSource
             .add(member: member, to: group)
 //            .get { [weak self] member in
@@ -98,6 +124,8 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     }
     
     func addNewMember(in group: Group) {
+        let ctrl: AddMemberViewController = AddMemberViewController.create(group: group, delegate: self)
+        presentController(ctrl)
     }
 }
 

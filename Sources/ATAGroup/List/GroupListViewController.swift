@@ -56,7 +56,6 @@ class GroupListViewController: UIViewController {
     }
     
     @objc func addNewGroup() {
-        
     }
 }
 

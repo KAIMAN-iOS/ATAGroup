@@ -466,6 +466,78 @@
             </objects>
             <point key="canvasLocation" x="247.82608695652175" y="34.821428571428569"/>
         </scene>
+        <!--Add Member View Controller-->
+        <scene sceneID="2gZ-v4-h6p">
+            <objects>
+                <viewController storyboardIdentifier="AddMemberViewController" id="KHD-FV-hfH" customClass="AddMemberViewController" customModule="ATAGroup" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r8c-Yt-1ZE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="252"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZu-Xb-oh3" customClass="ActionButton" customModule="ActionButton">
+                                <rect key="frame" x="20" y="182" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.34117648010000001" green="0.72156864399999998" blue="0.65098041299999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cx1-Cd-mTZ"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
+                                <state key="normal" title="IMPRIMER LE RECU">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addMember" destination="KHD-FV-hfH" eventType="touchUpInside" id="iDH-1P-MhH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="PERSONNALISEZ LE RECU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vga-CH-kVa">
+                                <rect key="frame" x="20" y="30" width="374" height="27"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="QqZ-vF-NJp">
+                                <rect key="frame" x="20" y="87" width="374" height="65"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="900" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6kf-T3-Um4">
+                                        <rect key="frame" x="8" y="12" width="358" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6kf-T3-Um4" secondAttribute="trailing" constant="8" id="NQV-pm-flP"/>
+                                    <constraint firstItem="6kf-T3-Um4" firstAttribute="leading" secondItem="QqZ-vF-NJp" secondAttribute="leading" constant="8" id="Q5f-5c-3pb"/>
+                                    <constraint firstItem="6kf-T3-Um4" firstAttribute="top" secondItem="QqZ-vF-NJp" secondAttribute="top" constant="12" id="XaX-VB-Ayn"/>
+                                    <constraint firstAttribute="bottom" secondItem="6kf-T3-Um4" secondAttribute="bottom" constant="12" id="cW9-UL-I6C"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iKU-c9-bs4"/>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.89620888509999996" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iKU-c9-bs4" firstAttribute="trailing" secondItem="Vga-CH-kVa" secondAttribute="trailing" constant="20" id="23s-00-uxW"/>
+                            <constraint firstItem="QqZ-vF-NJp" firstAttribute="leading" secondItem="Vga-CH-kVa" secondAttribute="leading" id="50e-g9-anS"/>
+                            <constraint firstItem="eZu-Xb-oh3" firstAttribute="leading" secondItem="iKU-c9-bs4" secondAttribute="leading" constant="20" id="84w-Dq-wOU"/>
+                            <constraint firstItem="iKU-c9-bs4" firstAttribute="bottom" secondItem="eZu-Xb-oh3" secondAttribute="bottom" constant="20" id="IDE-Bb-buG"/>
+                            <constraint firstItem="QqZ-vF-NJp" firstAttribute="top" secondItem="Vga-CH-kVa" secondAttribute="bottom" constant="30" id="P3Y-Wl-MmM"/>
+                            <constraint firstItem="iKU-c9-bs4" firstAttribute="trailing" secondItem="eZu-Xb-oh3" secondAttribute="trailing" constant="20" id="SCU-V4-ZaB"/>
+                            <constraint firstItem="eZu-Xb-oh3" firstAttribute="top" secondItem="QqZ-vF-NJp" secondAttribute="bottom" constant="30" id="Sai-fE-XUW"/>
+                            <constraint firstItem="Vga-CH-kVa" firstAttribute="top" secondItem="r8c-Yt-1ZE" secondAttribute="top" constant="30" id="gYh-sc-0c5"/>
+                            <constraint firstItem="Vga-CH-kVa" firstAttribute="leading" secondItem="iKU-c9-bs4" secondAttribute="leading" constant="20" id="o2i-qw-p8k"/>
+                            <constraint firstItem="QqZ-vF-NJp" firstAttribute="trailing" secondItem="Vga-CH-kVa" secondAttribute="trailing" id="po3-0r-gFW"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="252"/>
+                    <connections>
+                        <outlet property="addButton" destination="eZu-Xb-oh3" id="LFO-D0-JU3"/>
+                        <outlet property="titleLabel" destination="Vga-CH-kVa" id="gd4-AV-2rO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ykP-BP-T6y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="960.86956521739137" y="-164.73214285714286"/>
+        </scene>
     </scenes>
     <resources>
         <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>

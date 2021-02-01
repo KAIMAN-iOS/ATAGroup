@@ -37,17 +37,16 @@ class GroupDetailViewController: UIViewController {
     @objc private func addMember() {
         coordinatorDelegate?.addNewMember(in: viewModel.group)
     }
+    
+    func didAdd(_ member: GroupMember) {
+        viewModel.didAdd(member)
+    }
 }
 
 extension GroupDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let delete = UIAction(title: "Delete".local(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
-            guard let self = self else { return }
-            
+            self?.viewModel.delete(itemAt: indexPath)
         }
         
         return UIContextMenuConfiguration(identifier: nil,

@@ -96,4 +96,25 @@ class GroupDetailViewModel {
         let section = NSCollectionLayoutSection(group: group)
         return section
     }
+    
+    func delete(itemAt indexPath: IndexPath) {
+        guard let cellType = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch cellType {
+        case .member(let member):
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                var snap = self.dataSource.snapshot()
+                snap.deleteItems([cellType])
+                self.group.members.removeAll(where: { $0.email == member.email })
+                self.applySnapshot(in: self.dataSource)
+            }
+            
+        default: ()
+        }
+    }
+    
+    func didAdd(_ member: GroupMember) {
+        group.members.append(member)
+        applySnapshot(in: dataSource)
+    }
 }
