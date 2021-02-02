@@ -11,6 +11,10 @@ import LabelExtension
 import ATAConfiguration
 import DateExtension
 
+protocol DetailGroupDeleteDelegate: NSObjectProtocol {
+    func delete(_ group: Group, completion: @escaping (() -> Void))
+}
+
 class GroupDetailHeaderCell: UICollectionViewCell {
     @IBOutlet weak var stateContainer: UIView!  {
         didSet {
@@ -51,7 +55,28 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         
     }
     
+    weak var deleteDelegate: DetailGroupDeleteDelegate?
+    @IBAction func delete() {
+        loader.startAnimating()
+        loader.isHidden = false
+        deleteButton.isHidden = true
+        deleteDelegate?.delete(group) { [weak self] in
+            self?.loader.stopAnimating()
+            self?.deleteButton.isHidden = false
+        }
+    }
+    @IBOutlet weak var loader: UIActivityIndicatorView!  {
+        didSet {
+            loader.color = GroupListViewController.configuration.palette.primary
+            loader.hidesWhenStopped = true
+            loader.isHidden = true
+        }
+    }
+
+    
+    private var group: Group!
     func configure(_ group: Group) {
+        self.group = group
         stackView.setCustomSpacing(8, after: dateLabel.superview!)
         documentContainer.isHidden = group.type.mandatoryDocument == false
         stateContainer.backgroundColor = group.type.color

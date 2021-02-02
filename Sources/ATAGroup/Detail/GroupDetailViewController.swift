@@ -28,9 +28,9 @@ class GroupDetailViewController: UIViewController {
         super.viewDidLoad()
         collectionView.collectionViewLayout = viewModel.layout()
         datasource = viewModel.dataSource(for: collectionView)
+        viewModel.deleteDelegate = self
         collectionView.dataSource = datasource
         viewModel.applySnapshot(in: datasource)
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add member".bundleLocale(), style: .plain, target: self, action: #selector(addMember))
     }
     
@@ -40,6 +40,23 @@ class GroupDetailViewController: UIViewController {
     
     func didAdd(_ member: GroupMember) {
         viewModel.didAdd(member)
+    }
+}
+
+extension GroupDetailViewController: DetailGroupDeleteDelegate {
+    func delete(_ group: Group, completion: @escaping (() -> Void)) {
+        let alertController = UIAlertController(title: "Delete group".bundleLocale(), message: "Delete group warning".bundleLocale(), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel".bundleLocale(), style: .cancel, handler: {_ in
+            completion()
+        }))
+        alertController.addAction(UIAlertAction(title: "Delete".bundleLocale(), style: .default, handler: { [weak self] _ in
+            self?.coordinatorDelegate?.delete(group: group) { _ in
+                completion()
+            }
+        }))
+        alertController.view.tintColor = GroupListViewController.configuration.palette.primary
+        present(alertController, animated: true, completion: nil)
+        
     }
 }
 

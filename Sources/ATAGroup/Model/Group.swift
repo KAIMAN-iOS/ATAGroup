@@ -111,6 +111,7 @@ public struct Group: Codable {
     var members: [GroupMember] = []
     var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
+    var image: GroupImage?
     
     init(type: GroupType,
          name: String,
@@ -131,6 +132,22 @@ public struct Group: Codable {
     public static var testGroup2: Group { Group(type: GroupType.GroupType2, name: "LES COLlègues", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member2]) }
     public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: []) }
     public static var testGroup4: Group { Group(type: GroupType.GroupType2, name: "L'estaque Plage", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member3, GroupMember.member4]) }
+    
+    mutating func add(_ image: UIImage) {
+        if let img = GroupImage(image, at: 0) {
+            self.image = img
+        }
+    }
+    
+    mutating func add(_ image: GroupImage) {
+        self.image = image
+    }
+    
+    var isValid: Bool {
+        name.isEmpty == false
+            && (type.mandatoryDocument == false ||
+                    (documentName?.isEmpty == false && image != nil))
+    }
 }
 
 extension Group: Hashable {

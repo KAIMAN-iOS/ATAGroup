@@ -13,3 +13,13 @@
 "add member title" = "Nouveau membre";
 "add member button" = "Ajouter un membre";
 "email" = "Nouveau email";
+"new group" = "new group";
+"document name" = "document name";
+"create group" = "create group";
+"groupName" = "Group name";
+"documentName" = "document name";
+"groupType" = "group type";
+"Delete group warning" = "You are about to delete this group. Do you wish to proceed ?";
+"Delete group" = "Delete group confirmation";
+"Cancel" = "Cancel";
+"Delete" = "Delete";

@@ -17,16 +17,20 @@ protocol GroupCoordinatorDelegate: NSObjectProtocol {
     func addNewGroup()
     func showDetail(for group: Group)
     func addNewMember(in group: Group)
+    func delete(group: Group, completion: @escaping ((Bool) -> Void))
 }
 
 public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
     weak var dataSource: GroupDatasource!
     var controller: GroupListViewController!
+    private var availableGroupTypes: [GroupType] = []
     public init(groups: [Group],
-         dataSource: GroupDatasource,
-         configuration: ATAConfiguration,
-         router: RouterType) {
+                availableGroupTypes: [GroupType],
+                dataSource: GroupDatasource,
+                configuration: ATAConfiguration,
+                router: RouterType) {
         super.init(router: router)
+        self.availableGroupTypes = availableGroupTypes
         self.dataSource = dataSource
         controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self)
         
@@ -92,8 +96,11 @@ extension ATAGroupCoordinator: GroupDatasource {
     public func delete(group: Group) -> Promise<Bool> {
         dataSource
             .delete(group: group)
-            .get { [weak self] group in
-                self?.router.popModule(animated: true)
+            .get { [weak self] success in
+                if self?.router.navigationController.topViewController is GroupListViewController == false {
+                    self?.router.popModule(animated: true)
+                }
+                (self?.router.navigationController.topViewController as? GroupListViewController)?.didDelete(group)
             }
     }
     
@@ -114,8 +121,22 @@ extension ATAGroupCoordinator: GroupDatasource {
     }
 }
 
+extension ATAGroupCoordinator: AddGroupDelegate {
+    func create(_ group: Group, completion: (() -> Void)?) {
+        create(group: group)
+            .done { [weak self] group in
+                guard let listController = self?.router.navigationController.topViewController as? GroupListViewController else { return }
+                listController.didAdd(group)
+            }.catch { error in
+                completion?()
+            }
+    }
+}
+
 extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     func addNewGroup() {
+        let ctrl: AddGroupViewController = AddGroupViewController.create(groupTypes: availableGroupTypes, delegate: self)
+        router.push(ctrl, animated: true, completion: nil)
     }
     
     func showDetail(for group: Group) {
@@ -126,6 +147,15 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     func addNewMember(in group: Group) {
         let ctrl: AddMemberViewController = AddMemberViewController.create(group: group, delegate: self)
         presentController(ctrl)
+    }
+    
+    func delete(group: Group, completion: @escaping ((Bool) -> Void)) {
+        delete(group: group)
+            .done { success in
+                completion(success)
+            }.catch { error in
+                completion(false)
+            }
     }
 }
 

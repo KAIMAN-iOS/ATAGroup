@@ -56,6 +56,23 @@ class GroupListViewController: UIViewController {
     }
     
     @objc func addNewGroup() {
+        coordinatorDelegate?.addNewGroup()
+    }
+    
+    func didAdd(_ group: Group) {
+        viewModel.didAdd(group)
+    }
+    
+    func delete(itemAt indexPath: IndexPath) {
+        guard let group = datasource.itemIdentifier(for: indexPath) else { return }
+        coordinatorDelegate?.delete(group: group) { [weak self] success in
+            guard success == true else { return }
+            self?.didDelete(group)
+        }
+    }
+    
+    func didDelete(_ group: Group) {
+        viewModel.delete(group: group)
     }
 }
 
@@ -63,5 +80,16 @@ extension GroupListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let group = datasource.itemIdentifier(for: indexPath) else { return }
         coordinatorDelegate?.showDetail(for: group)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let delete = UIAction(title: "Delete".local(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+            self?.delete(itemAt: indexPath)
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil) { _ in
+            UIMenu(title: "Actions".local(), children: [delete])
+        }
     }
 }

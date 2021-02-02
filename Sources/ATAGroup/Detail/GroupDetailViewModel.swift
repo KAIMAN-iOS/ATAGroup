@@ -44,14 +44,17 @@ class GroupDetailViewModel {
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, CellType>
     private var dataSource: DataSource!
     private var sections: [Section] = []
+    weak var deleteDelegate: DetailGroupDeleteDelegate?
     
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
-        dataSource = DataSource(collectionView: collectionView) { (collection, indexPath, model) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: collectionView) { [weak self] (collection, indexPath, model) -> UICollectionViewCell? in
+            guard let self = self else { return nil }
             switch model {
             case .header(let group):
                 guard let cell: GroupDetailHeaderCell = collectionView.automaticallyDequeueReusableCell(forIndexPath: indexPath) else { return nil }
                 cell.configure(group)
+                cell.deleteDelegate = self.deleteDelegate
                 return cell
                 
             case .invitation(let group):

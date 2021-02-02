@@ -43,7 +43,7 @@ class ViewController: UIViewController {
 
     var coord: ATAGroupCoordinator<Int>!
     @IBAction func show(_ sender: Any) {
-        coord = ATAGroupCoordinator<Int>(groups: groups, dataSource: self, configuration: Configuration(), router: Router(navigationController: navigationController!))
+        coord = ATAGroupCoordinator<Int>(groups: groups, availableGroupTypes: [GroupType.GroupType1, GroupType.GroupType2, GroupType.GroupType3], dataSource: self, configuration: Configuration(), router: Router(navigationController: navigationController!))
         navigationController?.pushViewController(coord.toPresentable(), animated: true)
     }
     
@@ -63,7 +63,14 @@ extension ViewController: GroupDatasource {
     
     func create(group: Group) -> Promise<Group> {
         Promise<Group>.init { resolver in
-            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let success = Int.random(in: 0...1) == 0
+                if success {
+                    resolver.fulfill(group)
+                } else {
+                    resolver.reject(AddError.cantAddMemeber)
+                }
+            }
         }
     }
     
@@ -75,7 +82,14 @@ extension ViewController: GroupDatasource {
     
     func delete(group: Group) -> Promise<Bool> {
         Promise<Bool>.init { resolver in
-            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let success = Int.random(in: 0...1) == 0
+                if success {
+                    resolver.fulfill(true)
+                } else {
+                    resolver.reject(AddError.cantAddMemeber)
+                }
+            }
         }
     }
     

@@ -24,6 +24,11 @@ class GroupListViewModel {
     private var dataSource: DataSource!
     private var sections: [Section] = []
     
+    func didAdd(_ group: Group) {
+        groups.append(group)
+        applySnapshot(in: dataSource)
+    }
+    
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
         dataSource = DataSource(collectionView: collectionView) { (collection, indexPath, model) -> UICollectionViewCell? in
@@ -83,5 +88,12 @@ class GroupListViewModel {
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [createSectionHeader()]
         return section
+    }
+    
+    func delete(group: Group) {
+        var snap = dataSource.snapshot()
+        snap.deleteItems([group])
+        groups.removeAll(where: { $0 == group })
+        applySnapshot(in: dataSource)
     }
 }

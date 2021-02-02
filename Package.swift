@@ -25,12 +25,13 @@ let package = Package(
         .package(url: "https://github.com/jerometonnelier/TextFieldEffects", from: "1.7.1"),
         .package(url: "https://github.com/gordontucker/FittedSheets", from: "2.0.0"),
         .package(url: "https://github.com/mxcl/PromiseKit", from: "6.13.2"),
+        .package(url: "https://github.com/jerometonnelier/KStorage", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ATAGroup",
-            dependencies: ["KExtensions", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "IQKeyboardManagerSwift", "FittedSheets", "PromiseKit"]),
+            dependencies: ["KExtensions", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "IQKeyboardManagerSwift", "FittedSheets", "PromiseKit", "KStorage"]),
     ]
 )
