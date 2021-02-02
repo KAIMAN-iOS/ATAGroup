@@ -156,6 +156,7 @@ extension Group: Hashable {
         hasher.combine(type.hexColor)
         hasher.combine(name)
         hasher.combine(members)
+        hasher.combine(image)
     }
 }
 
@@ -168,5 +169,6 @@ extension Group: Comparable {
         lhs.type.sortIndex == rhs.type.sortIndex
             && lhs.type.name == rhs.type.name
             && lhs.name == rhs.name
+//            && lhs.image == rhs.image
     }
 }

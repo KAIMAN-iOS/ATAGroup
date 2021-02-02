@@ -86,7 +86,7 @@ extension AddGroupViewController: UIImagePickerControllerDelegate, UINavigationC
 }
 
 extension AddGroupViewController: PhotoDelegate {
-    func choosePicture(from imageView: GroupDocumentCell) {
+    func choosePicture() {
         presentImagePickerChoice(delegate: self, tintColor: GroupListViewController.configuration.palette.primary)
     }
 }

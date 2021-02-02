@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UIViewControllerExtension
 
 class GroupDetailViewController: UIViewController {
     
@@ -29,6 +30,7 @@ class GroupDetailViewController: UIViewController {
         collectionView.collectionViewLayout = viewModel.layout()
         datasource = viewModel.dataSource(for: collectionView)
         viewModel.deleteDelegate = self
+        viewModel.photoDelegate = self
         collectionView.dataSource = datasource
         viewModel.applySnapshot(in: datasource)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add member".bundleLocale(), style: .plain, target: self, action: #selector(addMember))
@@ -40,6 +42,28 @@ class GroupDetailViewController: UIViewController {
     
     func didAdd(_ member: GroupMember) {
         viewModel.didAdd(member)
+    }
+}
+
+extension GroupDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            guard let image = (info[.editedImage] ?? info[.originalImage]) as? UIImage else {
+                return
+            }
+            self.viewModel.updateDocument(with: image)
+        }
+    }
+}
+
+extension GroupDetailViewController: PhotoDelegate {
+    func choosePicture() {
+        presentImagePickerChoice(delegate: self, tintColor: GroupListViewController.configuration.palette.primary)
     }
 }
 

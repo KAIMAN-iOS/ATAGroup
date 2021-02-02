@@ -12,7 +12,7 @@ import UIImageViewExtension
 import Nuke
 
 protocol PhotoDelegate: class {
-    func choosePicture(from imageView: GroupDocumentCell)
+    func choosePicture()
 }
 
 class GroupDocumentCell: UICollectionViewCell {
@@ -35,7 +35,7 @@ class GroupDocumentCell: UICollectionViewCell {
     @IBOutlet weak var documentImage: UIImageView!
     
     @IBAction func choosePicture() {
-        photoDelegate?.choosePicture(from: self)
+        photoDelegate?.choosePicture()
     }
     var imageTask: ImageTask?
     var image: GroupImage?  {

@@ -19,15 +19,25 @@ class GroupDetailViewModel {
             }
         }
     }
+    
     enum CellType: Hashable {
+        static func == (lhs: CellType, rhs: CellType) -> Bool {
+            switch (lhs, rhs) {
+            case (.header(let leftGroup), .header(let rightGroup)): return leftGroup == rightGroup
+            case (.invitation(let leftGroup), .invitation(let rightGroup)): return leftGroup == rightGroup
+            case (.member(let leftMember), .member(let rightMember)): return leftMember == rightMember
+            default: return false
+            }
+        }
         case header(_: Group)
         case invitation(_: Group)
         case member(_: GroupMember)
         
         func hash(into hasher: inout Hasher) {
             switch self {
-            case .header: hasher.combine("header")
             case .invitation: hasher.combine("invitation")
+            case .header(let group): hasher.combine("header")
+                
             case .member(let member):
                 hasher.combine("member")
                 hasher.combine(member)
@@ -43,8 +53,8 @@ class GroupDetailViewModel {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, CellType>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, CellType>
     private var dataSource: DataSource!
-    private var sections: [Section] = []
     weak var deleteDelegate: DetailGroupDeleteDelegate?
+    weak var photoDelegate: PhotoDelegate?
     
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
@@ -55,6 +65,7 @@ class GroupDetailViewModel {
                 guard let cell: GroupDetailHeaderCell = collectionView.automaticallyDequeueReusableCell(forIndexPath: indexPath) else { return nil }
                 cell.configure(group)
                 cell.deleteDelegate = self.deleteDelegate
+                cell.photoDelegate = self.photoDelegate
                 return cell
                 
             case .invitation(let group):
@@ -74,11 +85,11 @@ class GroupDetailViewModel {
     func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {
         var snap = SnapShot()
         snap.deleteAllItems()
-        sections.removeAll()
         snap.appendSections(Section.allCases)
         snap.appendItems([.header(group)], toSection: .header)
         snap.appendItems([.invitation(group)], toSection: .invitation)
-        snap.appendItems(group.members.sorted().compactMap({ CellType.member($0) }), toSection: .member)
+        let members = group.members.sorted().compactMap({ CellType.member($0) })
+        snap.appendItems(members, toSection: .member)
         // add items here
         dataSource.apply(snap, animatingDifferences: animatingDifferences, completion: completion)
     }
@@ -118,6 +129,11 @@ class GroupDetailViewModel {
     
     func didAdd(_ member: GroupMember) {
         group.members.append(member)
+        applySnapshot(in: dataSource)
+    }
+    
+    func updateDocument(with image: UIImage) {
+        group.add(image)
         applySnapshot(in: dataSource)
     }
 }

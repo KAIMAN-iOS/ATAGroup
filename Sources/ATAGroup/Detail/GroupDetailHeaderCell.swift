@@ -10,6 +10,8 @@ import Ampersand
 import LabelExtension
 import ATAConfiguration
 import DateExtension
+import UIImageViewExtension
+import Nuke
 
 protocol DetailGroupDeleteDelegate: NSObjectProtocol {
     func delete(_ group: Group, completion: @escaping (() -> Void))
@@ -48,11 +50,38 @@ class GroupDetailHeaderCell: UICollectionViewCell {
     @IBOutlet weak var documentName: UILabel!
     
     @IBAction func chooseImage() {
-        
+        photoDelegate?.choosePicture()
     }
-    
+    weak var photoDelegate: PhotoDelegate?
     @IBAction func updateDocument() {
         
+    }
+    var imageTask: ImageTask?
+    var image: GroupImage?  {
+        didSet {
+            guard let image = image else {
+                documentIcon.image = UIImage(systemName: "photo.on.rectangle")
+                documentIcon.contentMode = .center
+                return
+            }
+            
+            if let actualImage = image.image {
+                documentIcon.image = actualImage
+                documentIcon.contentMode = .scaleAspectFill
+            } else if let url = image.imageURL {
+                documentIcon.image = nil // remove the user documents image
+                imageTask = documentIcon.downloadImage(from: url, placeholder: UIImage(systemName: "photo.on.rectangle"), activityColor: GroupListViewController.configuration.palette.primary)
+                documentIcon.contentMode = .scaleAspectFill
+            } else {
+                documentIcon.image = UIImage(systemName: "photo.on.rectangle")
+                documentIcon.contentMode = .center
+            }
+        }
+    }
+
+    override func prepareForReuse() {
+        imageTask?.cancel()
+        imageTask = nil
     }
     
     weak var deleteDelegate: DetailGroupDeleteDelegate?
@@ -73,10 +102,10 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         }
     }
 
-    
     private var group: Group!
     func configure(_ group: Group) {
         self.group = group
+        image = group.image
         stackView.setCustomSpacing(8, after: dateLabel.superview!)
         documentContainer.isHidden = group.type.mandatoryDocument == false
         stateContainer.backgroundColor = group.type.color
@@ -85,5 +114,6 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         
         guard group.type.mandatoryDocument == true else { return }
         documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
+        updateDocumentButton.isEnabled = group.image != nil
     }
 }
