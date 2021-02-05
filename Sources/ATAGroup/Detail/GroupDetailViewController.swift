@@ -87,7 +87,14 @@ extension GroupDetailViewController: DetailGroupDeleteDelegate {
 extension GroupDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let delete = UIAction(title: "Delete".local(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
-            self?.viewModel.delete(itemAt: indexPath)
+            guard let self = self else { return }
+            if let member = self.viewModel.memeber(at: indexPath) {
+                self.coordinatorDelegate?.delete(member: member, from: self.viewModel.group, completion: { [weak self] success in
+                    if success {
+                        self?.viewModel.delete(itemAt: indexPath)
+                    }
+                })
+            }
         }
         
         return UIContextMenuConfiguration(identifier: nil,

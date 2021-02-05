@@ -111,6 +111,14 @@ class GroupDetailViewModel {
         return section
     }
     
+    func memeber(at indexPath: IndexPath) -> GroupMember? {
+        guard let cellType = dataSource.itemIdentifier(for: indexPath) else { return nil }
+        switch cellType {
+        case .member(let member): return member
+        default: return nil
+        }
+    }
+    
     func delete(itemAt indexPath: IndexPath) {
         guard let cellType = dataSource.itemIdentifier(for: indexPath) else { return }
         switch cellType {

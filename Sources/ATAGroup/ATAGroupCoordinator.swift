@@ -18,6 +18,7 @@ protocol GroupCoordinatorDelegate: NSObjectProtocol {
     func showDetail(for group: Group)
     func addNewMember(in group: Group)
     func delete(group: Group, completion: @escaping ((Bool) -> Void))
+    func delete(member: GroupMember, from group: Group, completion: @escaping ((Bool) -> Void))
 }
 
 public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
@@ -151,6 +152,15 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     
     func delete(group: Group, completion: @escaping ((Bool) -> Void)) {
         delete(group: group)
+            .done { success in
+                completion(success)
+            }.catch { error in
+                completion(false)
+            }
+    }
+    
+    func delete(member: GroupMember, from group: Group, completion: @escaping ((Bool) -> Void)) {
+        remove(member: member, from: group)
             .done { success in
                 completion(success)
             }.catch { error in

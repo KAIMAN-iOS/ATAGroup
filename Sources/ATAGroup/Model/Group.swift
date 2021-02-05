@@ -9,6 +9,8 @@ import UIKit
 import ColorExtension
 import ATAConfiguration
 import DateExtension
+import Alamofire
+import CodableExtension
 
 public enum MemberStatus: Int, CaseIterable, Codable {
     case pending = 0, validated, deleted
@@ -32,17 +34,19 @@ public enum MemberStatus: Int, CaseIterable, Codable {
 }
 
 public struct GroupMember: Codable {
-    var email: String
-    var name: String?
-    var vehicle: String?
-    var location: String?
-    var status: MemberStatus
+    public var id: String
+    public var email: String
+    public var name: String?
+    public var vehicle: String?
+    public var location: String?
+    public var status: MemberStatus
     
     public init(email: String,
          name: String? = nil,
          vehicle: String? = nil,
          location: String? = nil,
          status: MemberStatus = .pending) {
+        self.id = UUID().uuidString
         self.email = email
         self.name = name
         self.vehicle = vehicle
@@ -102,16 +106,17 @@ public struct GroupType: Codable {
 }
 
 public struct Group: Codable {
-    var type: GroupType
-    var name: String
-    var status: GroupStatus = .pending
-    var documentUrl: URL?
-    var documentName: String?
-    var creationDate: CustomDate<ISODateFormatterDecodable> = CustomDate<ISODateFormatterDecodable>.init(date: Date())
-    var members: [GroupMember] = []
-    var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
-    var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
-    var image: GroupImage?
+    public var id: String
+    public var type: GroupType
+    public var name: String
+    public var status: GroupStatus = .pending
+    public var documentUrl: URL?
+    public var documentName: String?
+    public var creationDate: CustomDate<ISODateFormatterDecodable> = CustomDate<ISODateFormatterDecodable>.init(date: Date())
+    public var members: [GroupMember] = []
+    public var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
+    public var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
+    public var image: GroupImage?
     
     init(type: GroupType,
          name: String,
@@ -119,6 +124,7 @@ public struct Group: Codable {
          documentName: String?,
          creationDate: Date,
          members: [GroupMember]) {
+        self.id = UUID().uuidString
         self.type = type
         self.name = name
         self.status = GroupStatus.random
@@ -133,20 +139,40 @@ public struct Group: Codable {
     public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: []) }
     public static var testGroup4: Group { Group(type: GroupType.GroupType2, name: "L'estaque Plage", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member3, GroupMember.member4]) }
     
-    mutating func add(_ image: UIImage) {
+    public mutating func add(_ image: UIImage) {
         if let img = GroupImage(image, at: 0) {
             self.image = img
         }
     }
     
-    mutating func add(_ image: GroupImage) {
+    public mutating func add(_ image: GroupImage) {
         self.image = image
     }
     
-    var isValid: Bool {
+    public var isValid: Bool {
         name.isEmpty == false
             && (type.mandatoryDocument == false ||
                     (documentName?.isEmpty == false && image != nil))
+    }
+    
+    public var multipartData: MultipartFormData? {
+        let data = MultipartFormData()
+        try? data.encode(id, for: "id")
+        try? data.encode(type, for: "type")
+        try? data.encode(name, for: "name")
+        try? data.encode(status, for: "status")
+        if let url = documentUrl {
+            try? data.encode(url, for: "documentUrl")
+        }
+        if let name = documentName {
+            try? data.encode(name, for: "documentName")
+        }
+        try? data.encode(creationDate, for: "creationDate")
+        try? data.encode(members, for: "members")
+        if let image = image {
+            try? data.encode(image, for: "image")
+        }
+        return data
     }
 }
 

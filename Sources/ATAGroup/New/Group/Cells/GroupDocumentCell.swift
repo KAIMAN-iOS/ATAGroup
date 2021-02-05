@@ -94,12 +94,12 @@ extension GroupDocumentCell: UITextFieldDelegate {
     }
 }
 
-struct GroupImage: Codable, Hashable {
-    static func == (lhs: GroupImage, rhs: GroupImage) -> Bool {
+public struct GroupImage: Codable, Hashable {
+    public static func == (lhs: GroupImage, rhs: GroupImage) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     
-    var image: UIImage?  {
+    public var image: UIImage?  {
         didSet {
             guard let image = image,
                 let url = try? ImageManager.save(image) else {
@@ -116,17 +116,17 @@ struct GroupImage: Codable, Hashable {
         position = index
     }
     
-    init?(_ image: UIImage, at index: Int) {
+    public init?(_ image: UIImage, at index: Int) {
         self.image = image
         position = index
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case imageURL
         case position
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         //mandatory
         if let str = try container.decodeIfPresent(String.self, forKey: .imageURL) {
@@ -135,13 +135,13 @@ struct GroupImage: Codable, Hashable {
         try position = container.decode(Int.self, forKey: .position)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(position, forKey: .position)
         try container.encodeIfPresent(imageURL?.absoluteString, forKey: .imageURL)
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(position)
     }
 }
