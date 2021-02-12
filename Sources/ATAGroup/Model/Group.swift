@@ -83,10 +83,10 @@ public enum GroupStatus: Int, CaseIterable, Codable {
 
 public struct GroupType: Codable {
     var hexColor: String
-    var name: String
+    public var name: String
     var sortIndex: Int
     var mandatoryDocument: Bool
-    var color: UIColor {
+    public var color: UIColor {
         UIColor.init(hexString: hexColor, defaultReturn: UIColor.random())
     }
     
