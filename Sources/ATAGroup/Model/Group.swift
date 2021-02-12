@@ -16,7 +16,7 @@ public enum MemberStatus: Int, CaseIterable, Codable {
     case pending = 0, validated, deleted
     public static var random: MemberStatus { MemberStatus.init(rawValue: Int.random(in: 0...2)) ?? .pending }
     
-    var title: String {
+    public var title: String {
         switch self {
         case .pending: return "pending".bundleLocale()
         case .validated: return "validated".bundleLocale()
@@ -24,7 +24,7 @@ public enum MemberStatus: Int, CaseIterable, Codable {
         }
     }
     
-    var color: UIColor? {
+    public var color: UIColor? {
         switch self {
         case .pending: return GroupListViewController.configuration.palette.action
         case .validated: return GroupListViewController.configuration.palette.confirmation
