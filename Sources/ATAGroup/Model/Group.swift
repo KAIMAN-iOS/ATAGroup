@@ -86,6 +86,7 @@ public struct GroupType: Codable {
     public var name: String
     var sortIndex: Int
     var mandatoryDocument: Bool
+    public var isAlertGroup: Bool
     public var color: UIColor {
         UIColor.init(hexString: hexColor, defaultReturn: UIColor.random())
     }
@@ -93,16 +94,18 @@ public struct GroupType: Codable {
     init (hexColor: String,
           name: String,
           sortIndex: Int,
-          mandatoryDocument: Bool) {
+          mandatoryDocument: Bool,
+          isAlertGroup: Bool = false) {
         self.hexColor = hexColor
         self.name = name
         self.sortIndex = sortIndex
         self.mandatoryDocument = mandatoryDocument
+        self.isAlertGroup = isAlertGroup
     }
     
     public static var GroupType1: GroupType { GroupType(hexColor: "#307BF6", name: "groupement juridique", sortIndex: 0, mandatoryDocument: true) }
     public static var GroupType2: GroupType { GroupType(hexColor: "#EFB749", name: "Collègues", sortIndex: 1, mandatoryDocument: false) }
-    public static var GroupType3: GroupType { GroupType(hexColor: "#DA5264", name: "Alerte", sortIndex: 3, mandatoryDocument: false) }
+    public static var GroupType3: GroupType { GroupType(hexColor: "#DA5264", name: "Alerte", sortIndex: 3, mandatoryDocument: false, isAlertGroup: true) }
 }
 
 public struct Group: Codable {
