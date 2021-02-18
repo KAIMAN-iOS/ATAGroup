@@ -31,9 +31,9 @@ class GroupDetailMemberCell: UICollectionViewCell {
     func configure(_ member: GroupMember) {
         stateContainer.backgroundColor = member.status.color
         state.set(text: member.status.title.uppercased(), for: .caption2, textColor: .white)
-        email.set(text: member.email, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
-        name.set(text: member.name ?? "-", for: .caption2, traits: [.traitBold], textColor: GroupListViewController.configuration.palette.mainTexts)
-        vehicle.set(text: member.vehicle ?? "-", for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
-        location.set(text: member.location ?? "-", for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
+        email.set(text: member.email, for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
+        name.set(text: member.name ?? "-", for: .footnote, traits: [.traitBold], textColor: GroupListViewController.configuration.palette.mainTexts)
+        vehicle.set(text: member.vehicle ?? "-", for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
+        location.set(text: member.location ?? "-", for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
     }
 }

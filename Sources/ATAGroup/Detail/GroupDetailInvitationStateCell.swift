@@ -20,10 +20,10 @@ class GroupDetailInvitationStateCell: UICollectionViewCell {
         // members
         let memberFormatString : String = NSLocalizedString("NumberOfMember", bundle: .module, comment: "NumberOfMember")
         let memberResultString : String = String.localizedStringWithFormat(memberFormatString, group.activeMembers.count)
-        members.set(text: memberResultString, for: .footnote, textColor: GroupListViewController.configuration.palette.secondaryTexts)
+        members.set(text: memberResultString.uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.secondaryTexts)
         // invitation
         let invitationFormatString : String = NSLocalizedString("NumberOfInvitation", bundle: .module, comment: "NumberOfInvitation")
         let invitationResultString : String = String.localizedStringWithFormat(invitationFormatString, group.pendingMembers.count)
-        invitations.set(text: invitationResultString, for: .footnote, textColor: GroupListViewController.configuration.palette.secondaryTexts)
+        invitations.set(text: invitationResultString.uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.secondaryTexts)
     }
 }

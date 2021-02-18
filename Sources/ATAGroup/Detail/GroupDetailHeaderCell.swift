@@ -28,6 +28,8 @@ class GroupDetailHeaderCell: UICollectionViewCell {
     @IBOutlet weak var deleteButton: UIButton!  {
         didSet {
             deleteButton.setTitle("delete group".bundleLocale(), for: .normal)
+            deleteButton.setTitleColor(GroupListViewController.configuration.palette.primary, for: .normal)
+            deleteButton.titleLabel?.font = UIFont.italicSystemFont(ofSize: 12)
         }
     }
 
