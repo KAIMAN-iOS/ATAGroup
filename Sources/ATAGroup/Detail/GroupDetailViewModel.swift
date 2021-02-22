@@ -13,7 +13,7 @@ class GroupDetailViewModel {
         
         var height: CGFloat {
             switch self {
-            case .header: return 146
+            case .header: return 134
             case .invitation: return 75
             case .member: return 84
             }
@@ -36,8 +36,7 @@ class GroupDetailViewModel {
         func hash(into hasher: inout Hasher) {
             switch self {
             case .invitation: hasher.combine("invitation")
-            case .header(let group): hasher.combine("header")
-                
+            case .header: hasher.combine("header")
             case .member(let member):
                 hasher.combine("member")
                 hasher.combine(member)
@@ -142,6 +141,9 @@ class GroupDetailViewModel {
     
     func updateDocument(with image: UIImage) {
         group.add(image)
-        applySnapshot(in: dataSource)
+        var snap = dataSource.snapshot()
+        snap.deleteItems([.header(group)])
+        snap.insertItems([.header(group)], beforeItem: .invitation(group))
+        dataSource.apply(snap, animatingDifferences: true, completion: nil)
     }
 }

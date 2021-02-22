@@ -12,6 +12,7 @@ import ATAConfiguration
 import DateExtension
 import UIImageViewExtension
 import Nuke
+import ImageExtension
 
 protocol DetailGroupDeleteDelegate: NSObjectProtocol {
     func delete(_ group: Group, completion: @escaping (() -> Void))
@@ -23,6 +24,7 @@ class GroupDetailHeaderCell: UICollectionViewCell {
             stateContainer.cornerRadius = 5
         }
     }
+    @IBOutlet weak var documentUpdateDate: UILabel!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var state: UILabel!
     @IBOutlet weak var deleteButton: UIButton!  {
@@ -39,14 +41,7 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         didSet {
             documentIcon.backgroundColor = GroupListViewController.configuration.palette.secondary
             documentIcon.cornerRadius = 10
-        }
-    }
-
-    @IBOutlet weak var updateDocumentButton: UIButton!  {
-        didSet {
-            updateDocumentButton.backgroundColor = GroupListViewController.configuration.palette.secondary
-            updateDocumentButton.titleLabel?.font = .applicationFont(forTextStyle: .footnote)
-            updateDocumentButton.setTitle("update document".bundleLocale().uppercased(), for: .normal)
+            documentIcon.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     @IBOutlet weak var documentName: UILabel!
@@ -55,9 +50,6 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         photoDelegate?.choosePicture()
     }
     weak var photoDelegate: PhotoDelegate?
-    @IBAction func updateDocument() {
-        
-    }
     var imageTask: ImageTask?
     var image: GroupImage?  {
         didSet {
@@ -106,7 +98,10 @@ class GroupDetailHeaderCell: UICollectionViewCell {
 
     private var group: Group!
     func configure(_ group: Group) {
+        translatesAutoresizingMaskIntoConstraints = false
+        contentView.subviews.first?.translatesAutoresizingMaskIntoConstraints = false
         self.group = group
+        documentIcon.image = UIImage(systemName: "pencil")
         image = group.image
         stackView.setCustomSpacing(8, after: dateLabel.superview!)
         documentContainer.isHidden = group.type.mandatoryDocument == false
@@ -115,7 +110,10 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         dateLabel.set(text: String(format: "group creation date".bundleLocale(), DateFormatter.readableDateFormatter.string(from: group.creationDate.value)), for: .caption2, textColor: GroupListViewController.configuration.palette.secondaryTexts)
         
         guard group.type.mandatoryDocument == true else { return }
-        documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
-        updateDocumentButton.isEnabled = group.image != nil
+        documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.primary)
+        documentUpdateDate.isHidden = group.updateDate == nil
+        if let date = group.updateDate?.value {
+            documentUpdateDate.set(text: DateFormatter.readableDateFormatter.string(from: date), for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
+        }
     }
 }
