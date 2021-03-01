@@ -110,7 +110,7 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         dateLabel.set(text: String(format: "group creation date".bundleLocale(), DateFormatter.readableDateFormatter.string(from: group.creationDate.value)), for: .caption2, textColor: GroupListViewController.configuration.palette.secondaryTexts)
         
         guard group.type.mandatoryDocument == true else { return }
-        documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.primary)
+        documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
         documentUpdateDate.isHidden = group.updateDate == nil
         if let date = group.updateDate?.value {
             documentUpdateDate.set(text: DateFormatter.readableDateFormatter.string(from: date), for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
