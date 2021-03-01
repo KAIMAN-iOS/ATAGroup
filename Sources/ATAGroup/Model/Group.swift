@@ -120,13 +120,17 @@ public struct Group: Codable {
     public var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     public var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
     public var image: GroupImage?
+    public var isAlertGroup: Bool = false
+    public var channelId: String
     
     init(type: GroupType,
          name: String,
          documentUrl: URL?,
          documentName: String?,
          creationDate: Date,
-         members: [GroupMember]) {
+         members: [GroupMember],
+         isAlertGroup: Bool = false,
+         channelId: String = "") {
         self.id = UUID().uuidString
         self.type = type
         self.name = name
@@ -136,11 +140,14 @@ public struct Group: Codable {
         self.members = members
         self.image = GroupImage(index: 0)
         self.image?.imageURL = documentUrl
+        self.channelId = ""
+        self.isAlertGroup = isAlertGroup
+        self.channelId = channelId
     }
     
     public static var testGroup1: Group { Group(type: GroupType.GroupType1, name: "TAXI RADIO AIXOIS", documentUrl: URL(string: "https://images.pcastuces.com/adj/5169-10.png"), documentName: "Document légal", creationDate: Date(), members: [GroupMember.member1, GroupMember.member4]) }
     public static var testGroup2: Group { Group(type: GroupType.GroupType2, name: "LES COLlègues", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member2]) }
-    public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: []) }
+    public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: [], isAlertGroup: true, channelId: "GRdEXzPM78ndlWqsYgnl") }
     public static var testGroup4: Group { Group(type: GroupType.GroupType2, name: "L'estaque Plage", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member3, GroupMember.member4]) }
     
     public mutating func add(_ image: UIImage) {
