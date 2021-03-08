@@ -114,8 +114,8 @@ public struct Group: Codable {
     public var name: String
     public var status: GroupStatus = .pending
     public var documentName: String?
-    public var creationDate: CustomDate<ISODateFormatterDecodable> = CustomDate<ISODateFormatterDecodable>.init(date: Date())
-    public var updateDate: CustomDate<ISODateFormatterDecodable>?
+    public var creationDate: CustomDate<ISOMillisecondsDateFormatterDecodable> = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: Date())
+    public var updateDate: CustomDate<ISOMillisecondsDateFormatterDecodable>?
     public var members: [GroupMember] = []
     public var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     public var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
@@ -136,7 +136,7 @@ public struct Group: Codable {
         self.name = name
         self.status = GroupStatus.random
         self.documentName = documentName
-        self.creationDate = CustomDate<ISODateFormatterDecodable>.init(date: creationDate)
+        self.creationDate = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: creationDate)
         self.members = members
         self.image = GroupImage(index: 0)
         self.image?.imageURL = documentUrl
