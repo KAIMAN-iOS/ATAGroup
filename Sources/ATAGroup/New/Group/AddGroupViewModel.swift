@@ -112,10 +112,30 @@ class AddGroupViewModel {
                 return cell
             }
         }
+        let provider: UICollectionViewDiffableDataSource<Section, Group>.SupplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+              return nil
+            }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                       withReuseIdentifier: "DisclaimerHeader",
+                                                                       for: indexPath) as! DisclaimerHeader
+            view.configure("new group disclaimer".bundleLocale())
+            return view
+        }
+        dataSource.supplementaryViewProvider = provider
         return dataSource
     }
     
-    func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {
+    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                             heightDimension: .estimated(100))
+        let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize,
+                                                                              elementKind: UICollectionView.elementKindSectionHeader,
+                                                                              alignment: .top)
+        return layoutSectionHeader
+    }
+    
+    func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = false, completion: (() -> Void)? = nil) {
         var snap = SnapShot()
         snap.deleteAllItems()
         sections.removeAll()
@@ -139,10 +159,15 @@ class AddGroupViewModel {
     
     private func generateLayout(for section: Int, environnement: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         guard let sectionType = Section(rawValue: section) else { return nil }
-        let fullItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(sectionType == .textFields ? 82 : 230)))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(sectionType == .textFields ? 82 : 230)),
+        let fullItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                                 heightDimension: .estimated(sectionType == .textFields ? 62 : 143)))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                                          heightDimension: .estimated(sectionType == .textFields ? 62 : 143)),
                                                        subitem: fullItem, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-        return section
+        let groupSection = NSCollectionLayoutSection(group: group)
+        if sectionType == .textFields {
+            groupSection.boundarySupplementaryItems = [createSectionHeader()]
+        }
+        return groupSection
     }
 }

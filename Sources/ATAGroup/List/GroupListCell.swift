@@ -34,6 +34,6 @@ class GroupListCell: UICollectionViewCell {
         groupType.set(text: group.type.name.uppercased(), for: .caption2, textColor: .white)
         groupName.set(text: group.name, for: .body, textColor: GroupListViewController.configuration.palette.mainTexts)
         pendinggInvitations.set(text: String(format: "nb invitation format".bundleLocale(), group.pendingMembers.count), for: .caption1, textColor: GroupListViewController.configuration.palette.inactive)
-        numberOfMembers.set(text: String(format: "nb members format".bundleLocale(), group.activeMembers.count), for: .callout, textColor: GroupListViewController.configuration.palette.mainTexts)
+        numberOfMembers.set(text: String(format: "nb members format".bundleLocale(), group.activeMembers.count), for: .body, textColor: GroupListViewController.configuration.palette.mainTexts)
     }
 }

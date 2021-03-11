@@ -12,7 +12,7 @@
 "add member" = "+ Ajouter un membre";
 "add member title" = "Nouveau membre";
 "add member button" = "Envoyer l'invitation";
-"email" = "Nouveau email";
+"email" = "Saisir l'email du nouveau membre";
 "new group" = "nouveau groupe";
 "document name" = "nom du document";
 "create group" = "Créer le groupe";
@@ -23,3 +23,5 @@
 "Delete group" = "Confirmation de suppression";
 "Cancel" = "Annuler";
 "Delete" = "Supprimer";
+"legal document" = "justificatif juridique";
+"new group disclaimer" = "Interface de création d'un nouveau groupe";

@@ -31,7 +31,7 @@ class AddMemberViewController: UIViewController {
     @IBOutlet weak var addButton: ActionButton!  {
         didSet {
             addButton.setTitle("add member button".bundleLocale(), for: .normal)
-            addButton.actionButtonType = .primary
+            addButton.actionButtonType = .confirmation
             addButton.isEnabled = isValid
         }
     }

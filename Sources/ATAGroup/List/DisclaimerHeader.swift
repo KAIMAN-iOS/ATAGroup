@@ -15,4 +15,8 @@ class DisclaimerHeader: UICollectionReusableView {
             label.set(text: "group list disclaimer".bundleLocale(), for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
         }
     }
+    
+    func configure(_ text: String) {
+        label.set(text: text, for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
+    }
 }

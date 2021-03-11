@@ -34,6 +34,7 @@ class AddGroupViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!  {
         didSet {
             collectionView.delegate = self
+            collectionView.register(UINib(nibName: "DisclaimerHeader", bundle: .module), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DisclaimerHeader")
         }
     }
     @IBOutlet weak var createButton: ActionButton!  {

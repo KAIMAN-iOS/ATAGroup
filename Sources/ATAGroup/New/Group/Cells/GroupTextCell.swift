@@ -65,7 +65,7 @@ class GroupTextCell: UICollectionViewCell {
         textfield.textColor = GroupListViewController.configuration.palette.mainTexts
         textfield.backgroundColor = .white
         textfield.setContentCompressionResistancePriority(.required, for: .vertical)
-        textfield.font = .applicationFont(forTextStyle: .callout)
+        textfield.font = .applicationFont(forTextStyle: .body)
         textfield.rightViewMode = .whileEditing
         textfield.superview?.layer.borderWidth = 1.0
         textfield.superview?.layer.borderColor = GroupListViewController.configuration.palette.inactive.cgColor

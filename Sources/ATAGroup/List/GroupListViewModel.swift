@@ -38,7 +38,7 @@ class GroupListViewModel {
         }
         let provider: UICollectionViewDiffableDataSource<Section, Group>.SupplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else {
-              return nil
+                return nil
             }
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                        withReuseIdentifier: "DisclaimerHeader",
@@ -64,14 +64,14 @@ class GroupListViewModel {
         applySnapshot(in: dataSource)
     }
     
-   private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-       let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                            heightDimension: .estimated(100))
-       let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize,
-                                                                             elementKind: UICollectionView.elementKindSectionHeader,
-                                                                             alignment: .top)
-       return layoutSectionHeader
-   }
+    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                             heightDimension: .estimated(100))
+        let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize,
+                                                                              elementKind: UICollectionView.elementKindSectionHeader,
+                                                                              alignment: .top)
+        return layoutSectionHeader
+    }
     
     // MARK: - CollectionView Layout Modern API
     func layout() -> UICollectionViewLayout {

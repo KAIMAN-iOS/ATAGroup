@@ -24,6 +24,7 @@ class GroupListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!  {
         didSet {
             collectionView.delegate = self
+            collectionView.register(UINib(nibName: "DisclaimerHeader", bundle: .module), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DisclaimerHeader")
         }
     }
     var datasource: GroupListViewModel.DataSource!

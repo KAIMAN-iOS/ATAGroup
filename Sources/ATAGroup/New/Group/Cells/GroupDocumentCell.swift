@@ -17,13 +17,18 @@ protocol PhotoDelegate: class {
 
 class GroupDocumentCell: UICollectionViewCell {
     weak var textDelegate: GroupTextCellDelegate?
-    @IBOutlet weak var disclaimer: UILabel!
+    @IBOutlet weak var disclaimer: UILabel!  {
+        didSet {
+            disclaimer.set(text: "legal document".bundleLocale().uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.inactive)
+        }
+    }
+
     @IBOutlet weak var textField: UITextField! {
         didSet {
             textField.textColor = GroupListViewController.configuration.palette.mainTexts
             textField.backgroundColor = .white
             textField.setContentCompressionResistancePriority(.required, for: .vertical)
-            textField.font = .applicationFont(forTextStyle: .callout)
+            textField.font = .applicationFont(forTextStyle: .body)
             textField.rightViewMode = .whileEditing
             textField.placeholder = "document name".bundleLocale().uppercased()
             textField.superview?.layer.borderWidth = 1.0
@@ -68,7 +73,7 @@ class GroupDocumentCell: UICollectionViewCell {
     }
     
     func configure(_ group: Group) {
-        textField.set(text: group.documentName, for: .callout, textColor: GroupListViewController.configuration.palette.mainTexts)
+        textField.set(text: group.documentName, for: .body, textColor: GroupListViewController.configuration.palette.mainTexts)
         image = group.image
     }
 }
