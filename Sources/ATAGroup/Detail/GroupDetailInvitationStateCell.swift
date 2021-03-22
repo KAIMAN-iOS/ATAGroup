@@ -16,6 +16,7 @@ class GroupDetailInvitationStateCell: UICollectionViewCell {
     @IBOutlet weak var card: UIView!
     
     func configure(_ group: Group) {
+        contentView.backgroundColor = GroupListViewController.configuration.palette.background
         card.backgroundColor = GroupListViewController.configuration.palette.lightGray
         // members
         let memberFormatString : String = NSLocalizedString("NumberOfMember", bundle: .module, comment: "NumberOfMember")

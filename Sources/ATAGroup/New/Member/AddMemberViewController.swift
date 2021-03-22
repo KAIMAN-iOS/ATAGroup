@@ -47,6 +47,7 @@ class AddMemberViewController: UIViewController {
     static func create(group: Group, delegate: AddMemberDelegate) -> AddMemberViewController {
         let ctrl: AddMemberViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "AddMemberViewController") as! AddMemberViewController
         ctrl.group = group
+        ctrl.view.backgroundColor = GroupListViewController.configuration.palette.backgroundDark
         ctrl.delegate = delegate
         return ctrl
     }

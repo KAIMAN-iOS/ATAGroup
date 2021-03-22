@@ -55,6 +55,7 @@ class GroupDetailHeaderCell: UICollectionViewCell {
 
     private var group: Group!
     func configure(_ group: Group) {
+        contentView.backgroundColor = GroupListViewController.configuration.palette.background
         self.group = group
         stackView.setCustomSpacing(8, after: dateLabel.superview!)
         stateContainer.backgroundColor = group.type.color

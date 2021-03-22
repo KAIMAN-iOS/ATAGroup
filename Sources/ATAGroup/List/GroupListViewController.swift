@@ -25,11 +25,13 @@ class GroupListViewController: UIViewController {
         didSet {
             collectionView.delegate = self
             collectionView.register(UINib(nibName: "DisclaimerHeader", bundle: .module), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DisclaimerHeader")
+            collectionView.backgroundColor = GroupListViewController.configuration.palette.background
         }
     }
     var datasource: GroupListViewModel.DataSource!
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = GroupListViewController.configuration.palette.background
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "My groups".bundleLocale().capitalized
         hideBackButtonText = true

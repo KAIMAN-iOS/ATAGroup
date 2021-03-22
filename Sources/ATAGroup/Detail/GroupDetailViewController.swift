@@ -22,11 +22,13 @@ class GroupDetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!  {
         didSet {
             collectionView.delegate = self
+            collectionView.backgroundColor = GroupListViewController.configuration.palette.background
         }
     }
     var datasource: GroupDetailViewModel.DataSource!
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = GroupListViewController.configuration.palette.background
         collectionView.collectionViewLayout = viewModel.layout()
         datasource = viewModel.dataSource(for: collectionView)
         viewModel.deleteDelegate = self

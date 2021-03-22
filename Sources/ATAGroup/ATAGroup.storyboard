@@ -85,7 +85,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="ec3-Kd-UkF" firstAttribute="centerY" secondItem="edv-f5-oMj" secondAttribute="centerY" id="4Jk-3I-x7I"/>
                                                         <constraint firstItem="iL8-HL-JOq" firstAttribute="top" secondItem="Azb-bj-NnP" secondAttribute="top" constant="12" id="6f0-sU-fab"/>
@@ -103,7 +103,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Azb-bj-NnP" secondAttribute="trailing" id="LmB-xE-7P8"/>
                                                 <constraint firstItem="Azb-bj-NnP" firstAttribute="leading" secondItem="y3O-eA-KR7" secondAttribute="leading" id="Qrc-ZJ-4xk"/>
@@ -111,6 +111,7 @@
                                                 <constraint firstItem="Azb-bj-NnP" firstAttribute="top" secondItem="y3O-eA-KR7" secondAttribute="top" id="nV9-Rk-Ssq"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="414" height="77"/>
                                         <connections>
                                             <outlet property="groupName" destination="Ejl-0O-1Fb" id="dIz-YD-IzI"/>

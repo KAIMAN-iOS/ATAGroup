@@ -20,6 +20,7 @@ class AddGroupViewController: UIViewController {
         ctrl.delegate = delegate
         ctrl.groupTypes = groupTypes
         ctrl.viewModel = AddGroupViewModel(groupTypes: groupTypes)
+        ctrl.view.backgroundColor = GroupListViewController.configuration.palette.background
         return ctrl
     }
     weak var delegate: AddGroupDelegate!
@@ -35,6 +36,7 @@ class AddGroupViewController: UIViewController {
         didSet {
             collectionView.delegate = self
             collectionView.register(UINib(nibName: "DisclaimerHeader", bundle: .module), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DisclaimerHeader")
+            collectionView.backgroundColor = GroupListViewController.configuration.palette.background
         }
     }
     @IBOutlet weak var createButton: ActionButton!  {

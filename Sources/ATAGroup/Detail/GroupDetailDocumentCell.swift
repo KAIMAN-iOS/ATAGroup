@@ -60,6 +60,7 @@ class GroupDetailDocumentCell: UICollectionViewCell {
     
     private var group: Group!
     func configure(_ group: Group) {
+        contentView.backgroundColor = GroupListViewController.configuration.palette.background
         self.group = group
         image = group.image
         documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)

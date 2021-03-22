@@ -17,6 +17,7 @@ class DisclaimerHeader: UICollectionReusableView {
     }
     
     func configure(_ text: String) {
+        backgroundColor = GroupListViewController.configuration.palette.background
         label.set(text: text, for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
     }
 }

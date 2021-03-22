@@ -30,6 +30,7 @@ class GroupListCell: UICollectionViewCell {
 
     
     func configure(_ group: Group) {
+        contentView.backgroundColor = GroupListViewController.configuration.palette.background
         groupTypeContainer.backgroundColor = group.type.color
         groupType.set(text: group.type.name.uppercased(), for: .caption2, textColor: .white)
         groupName.set(text: group.name, for: .body, textColor: GroupListViewController.configuration.palette.mainTexts)

@@ -29,6 +29,7 @@ class GroupDetailMemberCell: UICollectionViewCell {
     @IBOutlet weak var location: UILabel!
     
     func configure(_ member: GroupMember) {
+        contentView.backgroundColor = GroupListViewController.configuration.palette.background
         stateContainer.backgroundColor = member.status.color
         state.set(text: member.status.title.uppercased(), for: .caption2, textColor: .white)
         email.set(text: member.email, for: .footnote, textColor: GroupListViewController.configuration.palette.mainTexts)
