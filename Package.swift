@@ -21,7 +21,6 @@ let package = Package(
         .package(url: "https://github.com/jerometonnelier/ActionButton", .branch("master")),
         .package(url: "https://github.com/jerometonnelier/KCoordinatorKit", .branch("master")),
         .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.0"),
-        .package(name: "IQKeyboardManagerSwift", url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "6.5.0"),
         .package(url: "https://github.com/jerometonnelier/TextFieldEffects", .branch("master")),
         .package(url: "https://github.com/gordontucker/FittedSheets", from: "2.0.0"),
         .package(url: "https://github.com/mxcl/PromiseKit", from: "6.13.2"),
@@ -32,6 +31,6 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ATAGroup",
-            dependencies: ["KExtensions", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "IQKeyboardManagerSwift", "FittedSheets", "PromiseKit", "KStorage"]),
+            dependencies: ["KExtensions", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "FittedSheets", "PromiseKit", "KStorage"]),
     ]
 )
