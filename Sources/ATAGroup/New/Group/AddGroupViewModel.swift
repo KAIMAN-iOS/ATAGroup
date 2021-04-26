@@ -99,6 +99,7 @@ class AddGroupViewModel {
                 guard let cell: GroupTextCell = collectionView.automaticallyDequeueReusableCell(forIndexPath: indexPath) else { return nil }
                 cell.configure(configuration: .groupType)
                 cell.textfield.text = self.group.type.name.uppercased()
+                cell.delegate = self.textDelegate
                 (cell.textfield.inputView as? UIPickerView)?.dataSource = self.pickerDatasource
                 (cell.textfield.inputView as? UIPickerView)?.delegate = self.pickerDelegate
                 (cell.textfield.inputView as? UIPickerView)?.selectRow(self.selectedRow, inComponent: 0, animated: false)

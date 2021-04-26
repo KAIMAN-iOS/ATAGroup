@@ -264,11 +264,12 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5si-IH-4OK">
                                                     <rect key="frame" x="14" y="0.0" width="378" height="111"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="kky-OF-RJ4">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="kky-OF-RJ4">
                                                             <rect key="frame" x="0.0" y="0.0" width="167" height="111"/>
                                                             <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.89620888509999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="111" id="IVP-ES-Hcu"/>
                                                                 <constraint firstAttribute="width" constant="167" id="y1A-t7-tYQ"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
@@ -279,9 +280,6 @@
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jf-uY-aip">
                                                             <rect key="frame" x="0.0" y="0.0" width="167" height="111"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="111" id="Dzs-sP-5fy"/>
-                                                            </constraints>
                                                             <connections>
                                                                 <action selector="chooseImage" destination="DSr-gI-ncq" eventType="touchUpInside" id="Qdb-2Z-2Yv"/>
                                                             </connections>
@@ -322,7 +320,6 @@
                                             <constraints>
                                                 <constraint firstItem="5si-IH-4OK" firstAttribute="leading" secondItem="spH-xh-mli" secondAttribute="leading" constant="14" id="HBy-46-ncR"/>
                                                 <constraint firstAttribute="trailing" secondItem="5si-IH-4OK" secondAttribute="trailing" constant="14" id="KHO-Xy-AZM"/>
-                                                <constraint firstItem="kky-OF-RJ4" firstAttribute="width" secondItem="spH-xh-mli" secondAttribute="width" multiplier="0.41133" id="TnX-rZ-sbO"/>
                                                 <constraint firstAttribute="bottom" secondItem="5si-IH-4OK" secondAttribute="bottom" id="XZh-hx-UNT"/>
                                                 <constraint firstItem="5si-IH-4OK" firstAttribute="top" secondItem="spH-xh-mli" secondAttribute="top" id="xNK-CQ-e4u"/>
                                             </constraints>

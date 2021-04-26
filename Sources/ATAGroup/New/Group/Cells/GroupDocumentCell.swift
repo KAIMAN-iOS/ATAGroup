@@ -10,6 +10,7 @@ import LabelExtension
 import Ampersand
 import UIImageViewExtension
 import Nuke
+import ImageExtension
 
 protocol PhotoDelegate: class {
     func choosePicture()
@@ -22,9 +23,10 @@ class GroupDocumentCell: UICollectionViewCell {
             disclaimer.set(text: "legal document".bundleLocale().uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.inactive)
         }
     }
-
+    
     @IBOutlet weak var textField: UITextField! {
         didSet {
+            textField.addKeyboardControlView(target: self, buttonStyle: .footnote)
             textField.textColor = GroupListViewController.configuration.palette.mainTexts
             textField.backgroundColor = .white
             textField.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -43,7 +45,7 @@ class GroupDocumentCell: UICollectionViewCell {
         photoDelegate?.choosePicture()
     }
     var imageTask: ImageTask?
-    var image: GroupImage?  {
+    var image: CodableImage?  {
         didSet {
             guard let image = image else {
                 documentImage.image = UIImage(systemName: "photo.on.rectangle")

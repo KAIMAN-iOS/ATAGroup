@@ -22,7 +22,7 @@ class GroupDetailViewModel {
         
         var dimension: NSCollectionLayoutDimension {
             switch self {
-//            case .documentImage: return .absolute(height)
+            case .documentImage: return .absolute(height)
             default: return .estimated(height)
             }
         }
@@ -32,14 +32,14 @@ class GroupDetailViewModel {
         static func == (lhs: CellType, rhs: CellType) -> Bool {
             switch (lhs, rhs) {
             case (.header(let leftGroup), .header(let rightGroup)): return leftGroup == rightGroup
-            case (.documentImage(let leftGroup), .documentImage(let rightGroup)): return leftGroup == rightGroup
+            case (.documentImage(let leftGroup), .documentImage(let rightGroup)): return true
             case (.invitation(let leftGroup), .invitation(let rightGroup)): return leftGroup == rightGroup
             case (.member(let leftMember), .member(let rightMember)): return leftMember == rightMember
             default: return false
             }
         }
         case header(_: Group)
-        case documentImage(_: Group)
+        case documentImage(_: String)
         case invitation(_: Group)
         case member(_: GroupMember)
         
@@ -47,7 +47,9 @@ class GroupDetailViewModel {
             switch self {
             case .invitation: hasher.combine("invitation")
             case .header: hasher.combine("header")
-            case .documentImage: hasher.combine("documentImage")
+            case .documentImage(let imageName):
+                hasher.combine("documentImage")
+                hasher.combine(imageName)
             case .member(let member):
                 hasher.combine("member")
                 hasher.combine(member)
@@ -77,9 +79,9 @@ class GroupDetailViewModel {
                 cell.deleteDelegate = self.deleteDelegate
                 return cell
                 
-            case .documentImage(let group):
+            case .documentImage:
                 guard let cell: GroupDetailDocumentCell = collectionView.automaticallyDequeueReusableCell(forIndexPath: indexPath) else { return nil }
-                cell.configure(group)
+                cell.configure(self.group)
                 cell.photoDelegate = self.photoDelegate
                 return cell
                 
@@ -104,7 +106,7 @@ class GroupDetailViewModel {
         snap.appendItems([.header(group)], toSection: .header)
         if group.type.mandatoryDocument {
             snap.appendSections([.documentImage])
-            snap.appendItems([.documentImage(group)], toSection: .documentImage)
+            snap.appendItems([.documentImage(group.image?.imageName ?? "")], toSection: .documentImage)
         }
         snap.appendSections([.invitation])
         snap.appendItems([.invitation(group)], toSection: .invitation)
@@ -161,15 +163,15 @@ class GroupDetailViewModel {
         applySnapshot(in: dataSource)
     }
     
-    func updateDocument(with image: UIImage) {
+    func updateDocument(with image: UIImage, completion: @escaping (() -> Void)) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             var snap = self.dataSource.snapshot()
-            snap.deleteItems([.documentImage(self.group)])
+//            snap.deleteItems([.documentImage(self.group)])
             self.group.add(image)
-//            snap.reloadItems([.documentImage(self.group)])
-            snap.insertItems([.documentImage(self.group)], afterItem: .header(self.group))
-            self.dataSource.apply(snap, animatingDifferences: false, completion: nil)
+            snap.reloadSections([.documentImage])
+//            snap.insertItems([.documentImage(self.group.image.imageName)], afterItem: .header(self.group))
+            self.dataSource.apply(snap, animatingDifferences: false, completion: completion)
         }
     }
 }

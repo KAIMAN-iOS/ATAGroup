@@ -31,7 +31,7 @@ class GroupDetailDocumentCell: UICollectionViewCell {
     }
     weak var photoDelegate: PhotoDelegate?
     var imageTask: ImageTask?
-    var image: GroupImage?  {
+    var image: CodableImage?  {
         didSet {
             guard let image = image else {
                 documentIcon.image = UIImage(systemName: "photo.on.rectangle")

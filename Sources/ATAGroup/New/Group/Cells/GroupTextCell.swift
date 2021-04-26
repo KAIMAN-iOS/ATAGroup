@@ -82,6 +82,7 @@ class GroupTextCell: UICollectionViewCell {
         textfield.inputView = view
         textfield.keyboardType = configuration.keyboardType ?? .asciiCapable
         textfield.delegate = self
+        textfield.addKeyboardControlView(target: self, buttonStyle: .footnote)
     }
 }
 

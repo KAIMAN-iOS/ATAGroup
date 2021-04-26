@@ -11,6 +11,7 @@ import ATAConfiguration
 import DateExtension
 import Alamofire
 import CodableExtension
+import ImageExtension
 
 public enum MemberStatus: Int, CaseIterable, Codable {
     case pending = 0, validated, deleted
@@ -119,8 +120,8 @@ public struct Group: Codable {
     public var members: [GroupMember] = []
     public var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     public var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
-    public var image: GroupImage?
-    public var isAlertGroup: Bool = false
+    public var image: CodableImage?
+    public var isAlertGroup: Bool { type.isAlertGroup }
     public var channelId: String
     
     init(type: GroupType,
@@ -129,7 +130,6 @@ public struct Group: Codable {
          documentName: String?,
          creationDate: Date,
          members: [GroupMember],
-         isAlertGroup: Bool = false,
          channelId: String = "") {
         self.id = UUID().uuidString
         self.type = type
@@ -138,25 +138,22 @@ public struct Group: Codable {
         self.documentName = documentName
         self.creationDate = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: creationDate)
         self.members = members
-        self.image = GroupImage(index: 0)
+        self.image = CodableImage()
         self.image?.imageURL = documentUrl
         self.channelId = ""
-        self.isAlertGroup = isAlertGroup
         self.channelId = channelId
     }
     
     public static var testGroup1: Group { Group(type: GroupType.GroupType1, name: "TAXI RADIO AIXOIS", documentUrl: URL(string: "https://images.pcastuces.com/adj/5169-10.png"), documentName: "Document légal", creationDate: Date(), members: [GroupMember.member1, GroupMember.member4]) }
     public static var testGroup2: Group { Group(type: GroupType.GroupType2, name: "LES COLlègues", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member2]) }
-    public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: [], isAlertGroup: true, channelId: "GRdEXzPM78ndlWqsYgnl") }
+    public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: [], channelId: "GRdEXzPM78ndlWqsYgnl") }
     public static var testGroup4: Group { Group(type: GroupType.GroupType2, name: "L'estaque Plage", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member3, GroupMember.member4]) }
     
     public mutating func add(_ image: UIImage) {
-        if let img = GroupImage(image, at: 0) {
-            self.image = img
-        }
+        self.image = CodableImage(image)
     }
     
-    public mutating func add(_ image: GroupImage) {
+    public mutating func add(_ image: CodableImage) {
         self.image = image
     }
     

@@ -58,7 +58,9 @@ extension GroupDetailViewController: UIImagePickerControllerDelegate, UINavigati
             guard let image = (info[.editedImage] ?? info[.originalImage]) as? UIImage else {
                 return
             }
-            self.viewModel.updateDocument(with: image)
+            self.viewModel.updateDocument(with: image) { [weak self] in
+                self?.collectionView.scrollRectToVisible(CGRect(origin: CGPoint(x: 0, y: -1), size: .zero), animated: true)
+            }
         }
     }
 }
