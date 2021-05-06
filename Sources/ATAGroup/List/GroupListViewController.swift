@@ -66,6 +66,10 @@ class GroupListViewController: UIViewController {
         viewModel.didAdd(group)
     }
     
+    func didUpdate(_ group: Group) {
+        viewModel.didUpdate(group)
+    }
+    
     func delete(itemAt indexPath: IndexPath) {
         guard let group = datasource.itemIdentifier(for: indexPath) else { return }
         coordinatorDelegate?.delete(group: group) { [weak self] success in

@@ -83,6 +83,7 @@ public enum GroupStatus: Int, CaseIterable, Codable {
 }
 
 public struct GroupType: Codable {
+    public var id: Int
     var hexColor: String
     public var name: String
     var sortIndex: Int
@@ -92,11 +93,13 @@ public struct GroupType: Codable {
         UIColor.init(hexString: hexColor, defaultReturn: UIColor.random())
     }
     
-    init (hexColor: String,
+    init (id: Int,
+          hexColor: String,
           name: String,
           sortIndex: Int,
           mandatoryDocument: Bool,
           isAlertGroup: Bool = false) {
+        self.id = id
         self.hexColor = hexColor
         self.name = name
         self.sortIndex = sortIndex
@@ -104,9 +107,9 @@ public struct GroupType: Codable {
         self.isAlertGroup = isAlertGroup
     }
     
-    public static var GroupType1: GroupType { GroupType(hexColor: "#307BF6", name: "groupement juridique", sortIndex: 0, mandatoryDocument: true) }
-    public static var GroupType2: GroupType { GroupType(hexColor: "#EFB749", name: "Collègues", sortIndex: 1, mandatoryDocument: false) }
-    public static var GroupType3: GroupType { GroupType(hexColor: "#DA5264", name: "Alerte", sortIndex: 3, mandatoryDocument: false, isAlertGroup: true) }
+    public static var GroupType1: GroupType { GroupType(id: 1, hexColor: "#307BF6", name: "groupement juridique", sortIndex: 0, mandatoryDocument: true) }
+    public static var GroupType2: GroupType { GroupType(id: 2, hexColor: "#EFB749", name: "Collègues", sortIndex: 1, mandatoryDocument: false) }
+    public static var GroupType3: GroupType { GroupType(id: 3, hexColor: "#DA5264", name: "Alerte", sortIndex: 3, mandatoryDocument: false, isAlertGroup: true) }
 }
 
 public struct Group: Codable {
@@ -166,7 +169,7 @@ public struct Group: Codable {
     public var multipartData: MultipartFormData? {
         let data = MultipartFormData()
         try? data.encode(id, for: "id")
-        try? data.encode(type, for: "type")
+        try? data.encode(type.id, for: "typeId")
         try? data.encode(name, for: "name")
         try? data.encode(status, for: "status")
         if let name = documentName {

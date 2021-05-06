@@ -83,15 +83,17 @@ extension ATAGroupCoordinator: GroupDatasource {
             .create(group: group)
             .get { [weak self] group in
                 self?.router.popModule(animated: true)
+                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(group)
             }
     }
     
     public func update(group: Group) -> Promise<Group> {
         dataSource
             .update(group: group)
-//            .get { [weak self] group in
-//                //TODO:
-//            }
+            .get { [weak self] group in
+                self?.router.popModule(animated: true)
+                (self?.router.navigationController.topViewController as? GroupListViewController)?.didUpdate(group)
+            }
     }
     
     public func delete(group: Group) -> Promise<Bool> {

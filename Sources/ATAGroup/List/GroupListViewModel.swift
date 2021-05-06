@@ -29,6 +29,19 @@ class GroupListViewModel {
         applySnapshot(in: dataSource)
     }
     
+    func didUpdate(_ group: Group) {
+        groups.removeAll(where: { $0 == group })
+        groups.append(group)
+        applySnapshot(in: dataSource)
+    }
+    
+    func delete(group: Group) {
+        var snap = dataSource.snapshot()
+        snap.deleteItems([group])
+        groups.removeAll(where: { $0 == group })
+        applySnapshot(in: dataSource)
+    }
+    
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
         dataSource = DataSource(collectionView: collectionView) { (collection, indexPath, model) -> UICollectionViewCell? in
@@ -49,7 +62,7 @@ class GroupListViewModel {
         return dataSource
     }
     
-    func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {
+    func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = false, completion: (() -> Void)? = nil) {
         var snap = SnapShot()
         snap.deleteAllItems()
         sections.removeAll()
@@ -88,12 +101,5 @@ class GroupListViewModel {
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [createSectionHeader()]
         return section
-    }
-    
-    func delete(group: Group) {
-        var snap = dataSource.snapshot()
-        snap.deleteItems([group])
-        groups.removeAll(where: { $0 == group })
-        applySnapshot(in: dataSource)
     }
 }
