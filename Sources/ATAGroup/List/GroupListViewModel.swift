@@ -42,6 +42,18 @@ class GroupListViewModel {
         applySnapshot(in: dataSource)
     }
     
+    func didAdd(member: GroupMember, to group: Group) {
+        var updateGroup = group
+        updateGroup.members.append(member)
+        didUpdate(updateGroup)
+    }
+    
+    func didRemove(member: GroupMember, from group: Group) {
+        var updateGroup = group
+        updateGroup.members.removeAll(where: { $0 == member })
+        didUpdate(updateGroup)
+    }
+    
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
         dataSource = DataSource(collectionView: collectionView) { (collection, indexPath, model) -> UICollectionViewCell? in

@@ -15,7 +15,7 @@ class GroupDetailViewModel {
             switch self {
             case .header: return 50
             case .documentImage: return 111
-            case .invitation: return 75
+            case .invitation: return 65
             case .member: return 84
             }
         }
@@ -57,6 +57,7 @@ class GroupDetailViewModel {
         }
     }
     private(set) var group: Group!
+    private var sections: [Section] = []
     init(group: Group) {
         self.group = group
     }
@@ -102,9 +103,11 @@ class GroupDetailViewModel {
     func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = false, completion: (() -> Void)? = nil) {
         var snap = SnapShot()
         snap.deleteAllItems()
+        sections.append(contentsOf: [.header, .invitation, .member])
         snap.appendSections([.header])
         snap.appendItems([.header(group)], toSection: .header)
         if group.type.mandatoryDocument {
+            sections.insert(.documentImage, at: 1)
             snap.appendSections([.documentImage])
             snap.appendItems([.documentImage(group.image?.imageName ?? "")], toSection: .documentImage)
         }
@@ -126,7 +129,7 @@ class GroupDetailViewModel {
     }
     
     private func generateLayout(for section: Int, environnement: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
-        guard let sectionModel = Section(rawValue: section) else { return nil }
+        guard section < sections.count, let sectionModel = Optional.some(sections[section]) else { return nil }
         let fullItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: sectionModel.dimension))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: sectionModel.dimension),
                                                        subitem: fullItem, count: 1)

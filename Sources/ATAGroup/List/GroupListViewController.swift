@@ -81,6 +81,14 @@ class GroupListViewController: UIViewController {
     func didDelete(_ group: Group) {
         viewModel.delete(group: group)
     }
+    
+    func didAdd(member: GroupMember, to group: Group) {
+        viewModel.didAdd(member: member, to: group)
+    }
+    
+    func didRemove(member: GroupMember, from group: Group) {
+        viewModel.didRemove(member: member, from: group)
+    }
 }
 
 extension GroupListViewController: UICollectionViewDelegate {

@@ -176,9 +176,12 @@ public struct Group: Codable {
             try? data.encode(name, for: "documentName")
         }
         try? data.encode(creationDate, for: "creationDate")
-        try? data.encode(members, for: "members")
-        if let image = image {
-            try? data.encode(image, for: "image")
+        if members.count > 0 {
+            try? data.encode(members, for: "members")
+        }
+        if let image = image?.image,
+           let imageData = image.jpegData(compressionQuality: 0.7) {
+            data.append(imageData, withName: "image", fileName: "image", mimeType: "image/jpg")
         }
         return data
     }
@@ -200,9 +203,10 @@ extension Group: Comparable {
     }
     
     public static func == (lhs: Group, rhs: Group) -> Bool {
-        lhs.type.sortIndex == rhs.type.sortIndex
-            && lhs.type.name == rhs.type.name
-            && lhs.name == rhs.name
+        lhs.id == rhs.id
+//        lhs.type.sortIndex == rhs.type.sortIndex
+//            && lhs.type.name == rhs.type.name
+//            && lhs.name == rhs.name
 //            && lhs.image == rhs.image
     }
 }

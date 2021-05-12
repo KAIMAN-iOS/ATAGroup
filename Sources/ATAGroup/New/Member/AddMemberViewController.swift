@@ -43,6 +43,11 @@ class AddMemberViewController: UIViewController {
             addButton.isEnabled = isValid
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        textField.addKeyboardControlView(target: self.view, buttonStyle: .footnote)
+    }
 
     static func create(group: Group, delegate: AddMemberDelegate) -> AddMemberViewController {
         let ctrl: AddMemberViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "AddMemberViewController") as! AddMemberViewController

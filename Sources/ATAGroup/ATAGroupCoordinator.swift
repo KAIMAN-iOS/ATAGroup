@@ -65,8 +65,10 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
 extension ATAGroupCoordinator: AddMemberDelegate {
     func add(_ email: String, to group: Group, completion: (() -> Void)?) {
         add(member: email, to: group)
-            .done { [weak self] member in
+            .ensure { [weak self] in
                 (self?.router.navigationController.topViewController ?? self?.controller)?.dismiss(animated: true, completion: nil)
+            }
+            .done { [weak self] member in
                 guard let detailController = self?.router.navigationController.topViewController as? GroupDetailViewController else { return }
                 detailController.didAdd(member)
             }.catch { error in
@@ -83,7 +85,7 @@ extension ATAGroupCoordinator: GroupDatasource {
             .create(group: group)
             .get { [weak self] group in
                 self?.router.popModule(animated: true)
-                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(group)
+//                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(group)
             }
     }
     
@@ -110,17 +112,19 @@ extension ATAGroupCoordinator: GroupDatasource {
     public func add(member: String, to group: Group) -> Promise<GroupMember> {
         dataSource
             .add(member: member, to: group)
-//            .get { [weak self] member in
-//
-//            }
+            .get { [weak self] member in
+                self?.router.popModule(animated: true)
+                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(member: member, to: group)
+            }
     }
     
     public func remove(member: GroupMember, from group: Group) -> Promise<Bool> {
         dataSource
             .remove(member: member, from: group)
-//            .get { [weak self] member in
-//                
-//            }
+            .get { [weak self] success in
+                self?.router.popModule(animated: true)
+                (self?.router.navigationController.topViewController as? GroupListViewController)?.didRemove(member: member, from: group)
+            }
     }
 }
 
