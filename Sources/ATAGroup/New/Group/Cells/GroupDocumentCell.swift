@@ -11,8 +11,9 @@ import Ampersand
 import UIImageViewExtension
 import Nuke
 import ImageExtension
+import ATAViews
 
-protocol PhotoDelegate: class {
+protocol PhotoDelegate: NSObjectProtocol {
     func choosePicture()
 }
 
@@ -23,21 +24,14 @@ class GroupDocumentCell: UICollectionViewCell {
             disclaimer.set(text: "legal document".bundleLocale().uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.inactive)
         }
     }
-    
-    @IBOutlet weak var textField: UITextField! {
+    @IBOutlet weak var ataTextfield: ATATextField!  {
         didSet {
-            textField.addKeyboardControlView(target: self, buttonStyle: .footnote)
-            textField.textColor = GroupListViewController.configuration.palette.mainTexts
-            textField.backgroundColor = .white
-            textField.setContentCompressionResistancePriority(.required, for: .vertical)
-            textField.font = .applicationFont(forTextStyle: .body)
-            textField.rightViewMode = .whileEditing
-            textField.placeholder = "document name".bundleLocale().uppercased()
-            textField.superview?.layer.borderWidth = 1.0
-            textField.superview?.layer.borderColor = GroupListViewController.configuration.palette.inactive.cgColor
-            textField.delegate = self
+            ataTextfield.textField.placeholder = "document name".bundleLocale().uppercased()
+            ataTextfield.textField.delegate = self
         }
     }
+
+    var textField: UITextField! { ataTextfield.textField }
     weak var photoDelegate: PhotoDelegate?
     @IBOutlet weak var documentImage: UIImageView!
     

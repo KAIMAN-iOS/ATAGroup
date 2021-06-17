@@ -8,6 +8,7 @@
 import UIKit
 import UIViewControllerExtension
 import ATAConfiguration
+import Ampersand
 
 class GroupListViewController: UIViewController {
     static var configuration: ATAConfiguration!
@@ -51,6 +52,8 @@ class GroupListViewController: UIViewController {
     
     func refreshComplete() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+ add new group".bundleLocale(), style: .plain, target: self, action: #selector(addNewGroup))
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font : UIFont.applicationFont(ofSize: 16.0),
+                                                                   .foregroundColor : GroupListViewController.configuration.palette.mainTexts], for: .normal)
     }
     
     func update(_ groups: [Group]) {

@@ -10,8 +10,9 @@ import FontExtension
 import LabelExtension
 import TextFieldExtension
 import Ampersand
+import ATAViews
 
-protocol GroupTextCellDelegate: class {
+protocol GroupTextCellDelegate: NSObjectProtocol {
     func textChanged(_ text: String?, for field: GroupTextCell.FieldType)
     func willResignActive()
     func willBecomeActive(_ field: GroupTextCell.FieldType)
@@ -54,41 +55,43 @@ class GroupTextCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var textfield: UITextField!  {
-        didSet {
-            layoutTextfield()
-        }
-    }
-
-    
-    func layoutTextfield() {
-        textfield.textColor = GroupListViewController.configuration.palette.mainTexts
-        textfield.backgroundColor = .white
-        textfield.setContentCompressionResistancePriority(.required, for: .vertical)
-        textfield.font = .applicationFont(forTextStyle: .body)
-        textfield.rightViewMode = .whileEditing
-        textfield.superview?.layer.borderWidth = 1.0
-        textfield.superview?.layer.borderColor = GroupListViewController.configuration.palette.inactive.cgColor
-        textfield.delegate = self
-    }
+    @IBOutlet weak var ataTextfield: ATATextField!
+//
+//    @IBOutlet weak var textfield: UITextField!  {
+//        didSet {
+//            layoutTextfield()
+//        }
+//    }
+//
+//
+//    func layoutTextfield() {
+//        textfield.textColor = GroupListViewController.configuration.palette.mainTexts
+//        textfield.backgroundColor = .white
+//        textfield.setContentCompressionResistancePriority(.required, for: .vertical)
+//        textfield.font = .applicationFont(forTextStyle: .body)
+//        textfield.rightViewMode = .whileEditing
+//        textfield.superview?.layer.borderWidth = 1.0
+//        textfield.superview?.layer.borderColor = GroupListViewController.configuration.palette.inactive.cgColor
+//        textfield.delegate = self
+//    }
     
     weak var delegate: GroupTextCellDelegate?
     var fieldType: GroupTextCell.FieldType!
     func configure(configuration: GroupTextCell.FieldType) {
-        layoutTextfield()
+//        layoutTextfield()
         self.fieldType = configuration
-        textfield.placeholder = configuration.placeholder
-        let view = configuration.inputView(textField: textfield, target: self, viewColor: GroupListViewController.configuration.palette.secondary)
-        textfield.inputView = view
-        textfield.keyboardType = configuration.keyboardType ?? .asciiCapable
-        textfield.delegate = self
-        textfield.addKeyboardControlView(target: self, buttonStyle: .footnote)
+        ataTextfield.textField.placeholder = configuration.placeholder
+        let view = configuration.inputView(textField: ataTextfield.textField, target: self, viewColor: GroupListViewController.configuration.palette.secondary)
+        ataTextfield.textField.inputView = view
+        ataTextfield.textField.keyboardType = configuration.keyboardType ?? .asciiCapable
+        ataTextfield.textField.delegate = self
+        ataTextfield.textField.addKeyboardControlView(target: self, buttonStyle: .footnote)
     }
 }
 
 extension GroupTextCell: UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        delegate?.textChanged(textfield.text, for: fieldType)
+        delegate?.textChanged(ataTextfield.textField.text, for: fieldType)
         return true
     }
     

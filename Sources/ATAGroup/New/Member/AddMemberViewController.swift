@@ -12,6 +12,7 @@ import StringExtension
 
 protocol AddMemberDelegate: NSObjectProtocol {
     func add(_ email: String, to group: Group, completion: (() -> Void)?)
+    func canAddMember(_ email: String?) -> Bool
 }
 
 class AddMemberViewController: UIViewController {
@@ -58,6 +59,7 @@ class AddMemberViewController: UIViewController {
     }
     
     @IBAction func addMember() {
+        guard delegate.canAddMember(textField.text) else { return }
         textField.resignFirstResponder()
         addButton.isLoading = true
         delegate.add(textField.text!, to: group) { [weak self] in

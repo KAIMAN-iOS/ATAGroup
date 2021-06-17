@@ -11,6 +11,7 @@ public protocol GroupDatasource: NSObjectProtocol {
     func delete(group: Group) -> Promise<Bool>
     func add(member: String, to group: Group) -> Promise<GroupMember>
     func remove(member: GroupMember, from group: Group) -> Promise<Bool>
+    func canAddMember(_ email: String?) -> Bool
 }
 
 protocol GroupCoordinatorDelegate: NSObjectProtocol {
@@ -63,6 +64,8 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
 }
 
 extension ATAGroupCoordinator: AddMemberDelegate {
+    public func canAddMember(_ email: String?) -> Bool { dataSource.canAddMember(email) }
+    
     func add(_ email: String, to group: Group, completion: (() -> Void)?) {
         add(member: email, to: group)
             .ensure { [weak self] in

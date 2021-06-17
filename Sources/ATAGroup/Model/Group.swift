@@ -180,7 +180,7 @@ public struct Group: Codable {
             try? data.encode(members, for: "members")
         }
         if let image = image?.image,
-           let imageData = image.jpegData(compressionQuality: 0.7) {
+           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7) {
             data.append(imageData, withName: "image", fileName: "image", mimeType: "image/jpg")
         }
         return data

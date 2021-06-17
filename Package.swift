@@ -17,6 +17,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/jerometonnelier/KExtensions", .branch("master")),
+        .package(url: "https://github.com/jerometonnelier/ATAViews", .branch("master")),
         .package(url: "https://github.com/jerometonnelier/ATAConfiguration", .branch("master")),
         .package(url: "https://github.com/jerometonnelier/ActionButton", .branch("master")),
         .package(url: "https://github.com/jerometonnelier/KCoordinatorKit", .branch("master")),
@@ -31,6 +32,6 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ATAGroup",
-            dependencies: ["KExtensions", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "FittedSheets", "PromiseKit", "KStorage"]),
+            dependencies: ["KExtensions", "ATAViews", "ATAConfiguration", "ActionButton", "KCoordinatorKit", "SnapKit", "TextFieldEffects", "FittedSheets", "PromiseKit", "KStorage"]),
     ]
 )

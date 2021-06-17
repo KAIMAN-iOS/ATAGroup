@@ -85,7 +85,7 @@ class GroupListViewModel {
     }
     
     func update(_ groups: [Group]) {
-        self.groups = groups
+        self.groups = Array(Set(groups))
         applySnapshot(in: dataSource)
     }
     

@@ -7,6 +7,7 @@
 
 import UIKit
 import UIViewControllerExtension
+import Ampersand
 
 class GroupDetailViewController: UIViewController {
     
@@ -36,6 +37,8 @@ class GroupDetailViewController: UIViewController {
         collectionView.dataSource = datasource
         viewModel.applySnapshot(in: datasource)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add member".bundleLocale(), style: .plain, target: self, action: #selector(addMember))
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font : UIFont.applicationFont(ofSize: 16.0),
+                                                                   .foregroundColor : GroupListViewController.configuration.palette.mainTexts], for: .normal)
     }
     
     @objc private func addMember() {

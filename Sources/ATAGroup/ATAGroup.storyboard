@@ -513,7 +513,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justificatif juridique" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8hQ-yx-4mk">
-                                                    <rect key="frame" x="189.5" y="15" width="216.5" height="14"/>
+                                                    <rect key="frame" x="194" y="15" width="208" height="14"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -539,31 +539,17 @@
                                                         <action selector="choosePicture" destination="Sgi-vc-4xY" eventType="touchUpInside" id="RUO-p4-XBK"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="biD-lw-fN1">
-                                                    <rect key="frame" x="189.5" y="37" width="216.5" height="43"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="900" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Opb-Vh-2Eb">
-                                                            <rect key="frame" x="8" y="8" width="200.5" height="27"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                    </subviews>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="900" placeholderIntrinsicWidth="216.5" placeholderIntrinsicHeight="43" translatesAutoresizingMaskIntoConstraints="NO" id="biD-lw-fN1" customClass="ATATextField" customModule="ATAViews">
+                                                    <rect key="frame" x="194" y="37" width="208" height="43"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <constraints>
-                                                        <constraint firstItem="Opb-Vh-2Eb" firstAttribute="leading" secondItem="biD-lw-fN1" secondAttribute="leading" constant="8" id="Y74-Vr-qcN"/>
-                                                        <constraint firstAttribute="height" constant="43" id="gt4-NZ-Vch"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Opb-Vh-2Eb" secondAttribute="trailing" constant="8" id="omc-fr-XhW"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Opb-Vh-2Eb" secondAttribute="bottom" constant="8" id="tEx-gS-lmM"/>
-                                                        <constraint firstItem="Opb-Vh-2Eb" firstAttribute="top" secondItem="biD-lw-fN1" secondAttribute="top" constant="8" id="y7p-HF-h1Z"/>
-                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="biD-lw-fN1" firstAttribute="trailing" secondItem="8hQ-yx-4mk" secondAttribute="trailing" id="3jB-5m-VHA"/>
                                                 <constraint firstItem="biD-lw-fN1" firstAttribute="leading" secondItem="8hQ-yx-4mk" secondAttribute="leading" id="KoZ-sw-BwD"/>
-                                                <constraint firstAttribute="trailing" secondItem="8hQ-yx-4mk" secondAttribute="trailing" constant="8" id="MPO-fy-4eh"/>
+                                                <constraint firstAttribute="trailing" secondItem="8hQ-yx-4mk" secondAttribute="trailing" constant="12" id="MPO-fy-4eh"/>
                                                 <constraint firstItem="aCo-pW-hzl" firstAttribute="top" secondItem="mu2-SH-Qp1" secondAttribute="top" id="RSe-r1-1SY"/>
-                                                <constraint firstItem="8hQ-yx-4mk" firstAttribute="leading" secondItem="mu2-SH-Qp1" secondAttribute="trailing" constant="7.5" id="RoC-LP-CDx"/>
+                                                <constraint firstItem="8hQ-yx-4mk" firstAttribute="leading" secondItem="mu2-SH-Qp1" secondAttribute="trailing" constant="12" id="RoC-LP-CDx"/>
                                                 <constraint firstAttribute="bottom" secondItem="mu2-SH-Qp1" secondAttribute="bottom" constant="17.5" id="Stz-f5-qpV"/>
                                                 <constraint firstItem="aCo-pW-hzl" firstAttribute="trailing" secondItem="mu2-SH-Qp1" secondAttribute="trailing" id="ggh-o8-dW3"/>
                                                 <constraint firstItem="8hQ-yx-4mk" firstAttribute="top" secondItem="mu2-SH-Qp1" secondAttribute="top" id="juf-R7-93h"/>
@@ -576,9 +562,9 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="414" height="143"/>
                                         <connections>
+                                            <outlet property="ataTextfield" destination="biD-lw-fN1" id="OQp-nS-Vvf"/>
                                             <outlet property="disclaimer" destination="8hQ-yx-4mk" id="uDe-c5-F7c"/>
                                             <outlet property="documentImage" destination="mu2-SH-Qp1" id="LXM-it-lzQ"/>
-                                            <outlet property="textField" destination="Opb-Vh-2Eb" id="9DJ-A0-ctU"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GroupTextCell" id="bMw-ZU-77t" customClass="GroupTextCell" customModule="ATAGroup">
@@ -588,36 +574,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="54"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-RS-gde">
-                                                    <rect key="frame" x="17" y="7" width="374" height="41"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="900" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8WH-Z9-aev">
-                                                            <rect key="frame" x="8" y="12" width="358" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                    </subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pzc-7I-SsX" customClass="ATATextField" customModule="ATAViews">
+                                                    <rect key="frame" x="12" y="0.0" width="384" height="54"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <constraints>
-                                                        <constraint firstItem="8WH-Z9-aev" firstAttribute="top" secondItem="xeH-RS-gde" secondAttribute="top" constant="12" id="1WG-Zh-RTd"/>
-                                                        <constraint firstAttribute="bottom" secondItem="8WH-Z9-aev" secondAttribute="bottom" constant="12" id="2cI-Y6-6zp"/>
-                                                        <constraint firstAttribute="trailing" secondItem="8WH-Z9-aev" secondAttribute="trailing" constant="8" id="PEt-AR-XF6"/>
-                                                        <constraint firstItem="8WH-Z9-aev" firstAttribute="leading" secondItem="xeH-RS-gde" secondAttribute="leading" constant="8" id="lra-dw-qRK"/>
-                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="xeH-RS-gde" secondAttribute="bottom" constant="6" id="Dwa-zo-uE0"/>
-                                                <constraint firstItem="xeH-RS-gde" firstAttribute="leading" secondItem="s9N-PJ-LHU" secondAttribute="leading" constant="17" id="Eo8-GB-NYn"/>
-                                                <constraint firstItem="xeH-RS-gde" firstAttribute="top" secondItem="s9N-PJ-LHU" secondAttribute="top" constant="7" id="RUu-oA-Q8B"/>
-                                                <constraint firstAttribute="trailing" secondItem="xeH-RS-gde" secondAttribute="trailing" constant="17" id="lA3-M2-ITh"/>
+                                                <constraint firstItem="pzc-7I-SsX" firstAttribute="top" secondItem="s9N-PJ-LHU" secondAttribute="top" id="4j9-ET-Lxm"/>
+                                                <constraint firstItem="pzc-7I-SsX" firstAttribute="leading" secondItem="s9N-PJ-LHU" secondAttribute="leading" constant="12" id="cwQ-le-do7"/>
+                                                <constraint firstAttribute="trailing" secondItem="pzc-7I-SsX" secondAttribute="trailing" constant="12" id="srf-RQ-tb5"/>
+                                                <constraint firstAttribute="bottom" secondItem="pzc-7I-SsX" secondAttribute="bottom" id="wKg-wo-fCv"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="408" height="54"/>
                                         <connections>
-                                            <outlet property="textfield" destination="8WH-Z9-aev" id="2F9-90-sKh"/>
+                                            <outlet property="ataTextfield" destination="pzc-7I-SsX" id="v4s-5w-V2F"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
