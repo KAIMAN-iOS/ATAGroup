@@ -11,9 +11,10 @@ import Ampersand
 
 class GroupDetailViewController: UIViewController {
     
-    static func create(group: Group, delegate: GroupCoordinatorDelegate) -> GroupDetailViewController {
+    static func create(group: Group, delegate: GroupCoordinatorDelegate, memberDelegate: AddMemberDelegate) -> GroupDetailViewController {
         let ctrl: GroupDetailViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "GroupDetailViewController") as! GroupDetailViewController
         ctrl.viewModel = GroupDetailViewModel(group: group)
+        ctrl.viewModel.memberDelegate = memberDelegate
         ctrl.coordinatorDelegate = delegate
         ctrl.title = group.name
         return ctrl

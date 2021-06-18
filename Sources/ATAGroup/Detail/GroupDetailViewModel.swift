@@ -68,6 +68,7 @@ class GroupDetailViewModel {
     private var dataSource: DataSource!
     weak var deleteDelegate: DetailGroupDeleteDelegate?
     weak var photoDelegate: PhotoDelegate?
+    weak var memberDelegate: AddMemberDelegate!
     
     func dataSource(for collectionView: UICollectionView) -> DataSource {
         // Handle cells
@@ -114,7 +115,11 @@ class GroupDetailViewModel {
         snap.appendSections([.invitation])
         snap.appendItems([.invitation(group)], toSection: .invitation)
         snap.appendSections([.member])
-        let members = group.members.sorted().compactMap({ CellType.member($0) })
+        let members = group
+            .members
+            .filter({ $0.email.compare(memberDelegate.adminEmail) != .orderedSame})
+            .sorted()
+            .compactMap({ CellType.member($0) })
         snap.appendItems(members, toSection: .member)
         // add items here
         dataSource.apply(snap, animatingDifferences: animatingDifferences, completion: completion)

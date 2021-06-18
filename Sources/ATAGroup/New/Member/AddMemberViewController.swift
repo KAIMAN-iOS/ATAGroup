@@ -12,7 +12,7 @@ import StringExtension
 
 protocol AddMemberDelegate: NSObjectProtocol {
     func add(_ email: String, to group: Group, completion: (() -> Void)?)
-    func canAddMember(_ email: String?) -> Bool
+    var adminEmail: String { get }
 }
 
 class AddMemberViewController: UIViewController {
@@ -59,7 +59,14 @@ class AddMemberViewController: UIViewController {
     }
     
     @IBAction func addMember() {
-        guard delegate.canAddMember(textField.text) else { return }
+        guard let email = textField.text,
+              email.compare(delegate.adminEmail, options: .caseInsensitive) != .orderedSame else {
+            let alertController = UIAlertController(title: "Oups".bundleLocale(), message: "can't add self".bundleLocale(), preferredStyle: .alert)
+            alertController.view.tintColor = GroupListViewController.configuration.palette.primary
+            alertController.addAction(UIAlertAction(title: "OK".bundleLocale(), style: .cancel, handler: nil))
+            present(alertController, animated: true)
+            return
+        }
         textField.resignFirstResponder()
         addButton.isLoading = true
         delegate.add(textField.text!, to: group) { [weak self] in
