@@ -117,7 +117,6 @@ class GroupDetailViewModel {
         snap.appendSections([.member])
         let members = group
             .members
-            .filter({ $0.email.compare(memberDelegate.adminEmail) != .orderedSame})
             .sorted()
             .compactMap({ CellType.member($0) })
         snap.appendItems(members, toSection: .member)

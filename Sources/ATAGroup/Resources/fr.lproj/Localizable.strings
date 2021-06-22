@@ -27,3 +27,4 @@
 "new group disclaimer" = "Interface de création d'un nouveau groupe";
 "can't add self" = "Vous êtes déjà dans ce groupe";
 "oups" = "Oups";
+"owner" = "propriétaire";

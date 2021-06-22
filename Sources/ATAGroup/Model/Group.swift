@@ -41,6 +41,8 @@ public struct GroupMember: Codable {
     public var vehicle: String?
     public var location: String?
     public var status: MemberStatus
+    var isAdmin: Int?
+    var isOwner: Bool { isAdmin ?? 0 > 0 }
     
     public init(email: String,
          name: String? = nil,
@@ -55,10 +57,7 @@ public struct GroupMember: Codable {
         self.status = status
     }
     
-    public static var member1: GroupMember { GroupMember(email: "test@test.fr", name: nil, vehicle: nil, location: nil, status: .pending) }
-    public static var member2: GroupMember { GroupMember(email: "seb@ata.fr", name: nil, vehicle: nil, location: nil, status: .pending) }
-    public static var member3: GroupMember { GroupMember(email: "p.berveiller@ata.fr", name: "Philippe Berveiller", vehicle: "Peugeot 205 GTI", location: "10 Marseille", status: .validated) }
-    public static var member4: GroupMember { GroupMember(email: "s.andrieu@ata.fr", name: "Sébastien Andrieu", vehicle: "Porshe Caiman", location: "13 Bouc Bel Air", status: .validated) }
+    var displayName: String? { (isOwner) ? name : "\(name ?? "-") - (\("owner".bundleLocale().capitalizingFirstLetter()))" }
 }
 
 extension GroupMember: Hashable {
@@ -146,11 +145,6 @@ public struct Group: Codable {
         self.channelId = ""
         self.channelId = channelId
     }
-    
-    public static var testGroup1: Group { Group(type: GroupType.GroupType1, name: "TAXI RADIO AIXOIS", documentUrl: URL(string: "https://images.pcastuces.com/adj/5169-10.png"), documentName: "Document légal", creationDate: Date(), members: [GroupMember.member1, GroupMember.member4]) }
-    public static var testGroup2: Group { Group(type: GroupType.GroupType2, name: "LES COLlègues", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member2]) }
-    public static var testGroup3: Group { Group(type: GroupType.GroupType3, name: "Groupe d'alerte", documentUrl: nil, documentName: nil, creationDate: Date(), members: [], channelId: "GRdEXzPM78ndlWqsYgnl") }
-    public static var testGroup4: Group { Group(type: GroupType.GroupType2, name: "L'estaque Plage", documentUrl: nil, documentName: nil, creationDate: Date(), members: [GroupMember.member3, GroupMember.member4]) }
     
     public mutating func add(_ image: UIImage) {
         self.image = CodableImage(image)
