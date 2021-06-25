@@ -57,7 +57,7 @@ public struct GroupMember: Codable {
         self.status = status
     }
     
-    var displayName: String? { (isOwner) ? name : "\(name ?? "-") - (\("owner".bundleLocale().capitalizingFirstLetter()))" }
+    var displayName: String? { (!isOwner) ? name : "\(name ?? "-") - (\("owner".bundleLocale().capitalizingFirstLetter()))" }
 }
 
 extension GroupMember: Hashable {
