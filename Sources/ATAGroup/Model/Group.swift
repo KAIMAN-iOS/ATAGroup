@@ -41,8 +41,8 @@ public struct GroupMember: Codable {
     public var vehicle: String?
     public var location: String?
     public var status: MemberStatus
-    var isAdmin: Int?
-    var isOwner: Bool { isAdmin ?? 0 > 0 }
+    var isAdmin: Bool?
+    var isOwner: Bool { isAdmin ?? false }
     
     public init(email: String,
          name: String? = nil,
@@ -119,7 +119,7 @@ public struct Group: Codable {
     public var documentName: String?
     public var creationDate: CustomDate<ISOMillisecondsDateFormatterDecodable> = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: Date())
     public var updateDate: CustomDate<ISOMillisecondsDateFormatterDecodable>?
-    public var members: [GroupMember] = []
+    @DecodableDefault.EmptyList public var members: [GroupMember]
     public var pendingMembers: [GroupMember] {members.filter({ $0.status == .pending })  }
     public var activeMembers: [GroupMember] {members.filter({ $0.status == .validated })  }
     public var image: CodableImage?
@@ -139,11 +139,11 @@ public struct Group: Codable {
         self.status = GroupStatus.random
         self.documentName = documentName
         self.creationDate = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: creationDate)
-        self.members = members
         self.image = CodableImage()
         self.image?.imageURL = documentUrl
         self.channelId = ""
         self.channelId = channelId
+        self.members = members
     }
     
     public mutating func add(_ image: UIImage) {
