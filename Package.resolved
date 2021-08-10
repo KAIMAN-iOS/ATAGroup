@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "ATAViews",
+        "repositoryURL": "https://github.com/jerometonnelier/ATAViews",
+        "state": {
+          "branch": "master",
+          "revision": "fc0dea300071747f684777a825c3ff0c9a883e1c",
+          "version": null
+        }
+      },
+      {
         "package": "FittedSheets",
         "repositoryURL": "https://github.com/gordontucker/FittedSheets",
         "state": {

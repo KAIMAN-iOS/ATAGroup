@@ -28,3 +28,5 @@
 "can't add self" = "Vous êtes déjà dans ce groupe";
 "oups" = "Oups";
 "owner" = "propriétaire";
+"suspended" = "suspendu";
+"incomplete" = "incomplet";

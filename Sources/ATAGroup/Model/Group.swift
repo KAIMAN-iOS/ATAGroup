@@ -14,7 +14,7 @@ import CodableExtension
 import ImageExtension
 
 public enum MemberStatus: Int, CaseIterable, Codable {
-    case pending = 0, validated, deleted
+    case pending = 0, validated, deleted, suspended, incomplete
     public static var random: MemberStatus { MemberStatus.init(rawValue: Int.random(in: 0...2)) ?? .pending }
     
     public var title: String {
@@ -22,6 +22,8 @@ public enum MemberStatus: Int, CaseIterable, Codable {
         case .pending: return "pending".bundleLocale()
         case .validated: return "validated".bundleLocale()
         case .deleted: return "deleted".bundleLocale()
+        case .suspended: return "suspended".bundleLocale()
+        case .incomplete: return "incomplete".bundleLocale()
         }
     }
     
@@ -30,6 +32,8 @@ public enum MemberStatus: Int, CaseIterable, Codable {
         case .pending: return GroupListViewController.configuration.palette.action
         case .validated: return GroupListViewController.configuration.palette.confirmation
         case .deleted: return  GroupListViewController.configuration.palette.primary
+        case .suspended: return  GroupListViewController.configuration.palette.backgroundDark
+        case .incomplete: return  GroupListViewController.configuration.palette.inactive
         }
     }
 }
@@ -77,8 +81,8 @@ extension GroupMember: Comparable {
 }
 
 public enum GroupStatus: Int, CaseIterable, Codable {
-    case pending = 0, validated, deleted
-    public static var random: GroupStatus { GroupStatus.init(rawValue: Int.random(in: 0...2)) ?? .pending }
+    case pending = 0, validated, deleted, suspended, incomplete, closed
+    public static var random: GroupStatus { GroupStatus.init(rawValue: Int.random(in: 0...5)) ?? .pending }
 }
 
 public struct GroupType: Codable {
