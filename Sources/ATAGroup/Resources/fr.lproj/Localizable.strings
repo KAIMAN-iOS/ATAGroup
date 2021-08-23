@@ -1,6 +1,6 @@
 "nb invitation format" = "%d invitations en attente";
 "nb members format" = "%d membres";
-"group list disclaimer" = "Travaillez ensemble : créez un ou plusieurs groupes de chauffeurs pour échangerdes courses, travailler en sécurité.\n3 types de groupes : Groupement juridique (GIE ou groupement juridique), Groupe de collègues (groupes de chauffeurs indépendants), Groupe de Sécurité (chauffeurs qui seront alertés en appuyant sur le bouton SOS de votre application ou taximètre)";
+"group list disclaimer" = "Travaillez ensemble : créez un ou plusieurs groupes de chauffeurs pour échanger des courses, travailler en sécurité.\n3 types de groupes : Groupement juridique (GIE ou groupement juridique), Groupe de collègues (groupes de chauffeurs indépendants), Groupe de Sécurité (chauffeurs qui seront alertés en appuyant sur le bouton SOS de votre application ou taximètre)";
 "My groups" = "Groupes chauffeurs";
 "+ add new group" = "+ Ajouter un groupe";
 "pending" = "Invitation en attente de validation";
