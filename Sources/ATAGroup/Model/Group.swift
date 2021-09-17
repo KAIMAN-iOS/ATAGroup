@@ -89,7 +89,7 @@ public struct GroupType: Codable {
     public var id: Int
     var hexColor: String
     public var name: String
-    var sortIndex: Int
+    public var sortIndex: Int
     var mandatoryDocument: Bool
     public var isAlertGroup: Bool
     public var color: UIColor {
