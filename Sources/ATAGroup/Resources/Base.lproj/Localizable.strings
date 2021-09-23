@@ -20,6 +20,7 @@
 "documentName" = "document name";
 "groupType" = "group type";
 "Delete group warning" = "You are about to delete this group. Do you wish to proceed ?";
+"Delete member warning" = "You are about to delete this member. Do you wish to proceed ?";
 "Delete group" = "Delete group confirmation";
 "Cancel" = "Cancel";
 "Delete" = "Delete";
@@ -30,3 +31,5 @@
 "owner" = "propriétaire";
 "suspended" = "suspendu";
 "incomplete" = "incomplet";
+"member already exist in group" = "Ce membre existe déjà dans ce groupe";
+"Actions" = "Actions";

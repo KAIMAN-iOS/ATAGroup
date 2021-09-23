@@ -75,9 +75,14 @@ class GroupListViewController: UIViewController {
     
     func delete(itemAt indexPath: IndexPath) {
         guard let group = datasource.itemIdentifier(for: indexPath) else { return }
-        coordinatorDelegate?.delete(group: group) { [weak self] success in
-            guard success == true else { return }
-            self?.didDelete(group)
+        showDeleteConfirmation(with: "Delete group warning".bundleLocale(),
+                               tintColor: GroupListViewController.configuration.palette.primary) { [weak self] shouldDelete in
+            if shouldDelete {
+                self?.coordinatorDelegate?.delete(group: group) { [weak self] success in
+                    guard success == true else { return }
+                    self?.didDelete(group)
+                }
+            } 
         }
     }
     
@@ -101,13 +106,27 @@ extension GroupListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let delete = UIAction(title: "Delete".local(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+        let delete = UIAction(title: "Delete".bundleLocale(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
             self?.delete(itemAt: indexPath)
         }
         
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil) { _ in
-            UIMenu(title: "Actions".local(), children: [delete])
+            UIMenu(title: "Actions".bundleLocale(), children: [delete])
         }
+    }
+}
+
+extension UIViewController {
+    func showDeleteConfirmation(with message: String, tintColor: UIColor?, completion: @escaping ((Bool) -> Void)) {
+        let alertController = UIAlertController(title: "Delete group".bundleLocale(), message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel".bundleLocale(), style: .cancel, handler: {_ in
+            completion(false)
+        }))
+        alertController.addAction(UIAlertAction(title: "Delete".bundleLocale(), style: .default, handler: { [weak self] _ in
+            completion(true)
+        }))
+        alertController.view.tintColor = tintColor
+        present(alertController, animated: true, completion: nil)
     }
 }
