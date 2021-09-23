@@ -11,7 +11,7 @@ public protocol GroupDatasource: NSObjectProtocol {
     func delete(group: Group) -> Promise<Bool>
     func add(member: String, to group: Group) -> Promise<GroupMember>
     func remove(member: GroupMember, from group: Group) -> Promise<Bool>
-    var adminEmail: String { get }
+    var currentUserEmail: String { get }
 }
 
 protocol GroupCoordinatorDelegate: NSObjectProtocol {
@@ -64,7 +64,7 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
 }
 
 extension ATAGroupCoordinator: AddMemberDelegate {
-    public var adminEmail: String { dataSource.adminEmail }
+    public var currentUserEmail: String { dataSource.currentUserEmail }
     
     func add(_ email: String, to group: Group, completion: (() -> Void)?) {
         add(member: email, to: group)

@@ -77,37 +77,47 @@ extension GroupDetailViewController: PhotoDelegate {
 
 extension GroupDetailViewController: DetailGroupDeleteDelegate {
     func delete(_ group: Group, completion: @escaping (() -> Void)) {
-        let alertController = UIAlertController(title: "Delete group".bundleLocale(), message: "Delete group warning".bundleLocale(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Cancel".bundleLocale(), style: .cancel, handler: {_ in
-            completion()
-        }))
-        alertController.addAction(UIAlertAction(title: "Delete".bundleLocale(), style: .default, handler: { [weak self] _ in
-            self?.coordinatorDelegate?.delete(group: group) { _ in
+        delete(with: "Delete group warning".bundleLocale()) { shouldDelete in
+            if shouldDelete {
+                self.coordinatorDelegate?.delete(group: group) { _ in
+                    completion()
+                }
+            } else {
                 completion()
             }
-        }))
-        alertController.view.tintColor = GroupListViewController.configuration.palette.primary
-        present(alertController, animated: true, completion: nil)
-        
+        }
+    }
+    
+    func delete(with message: String, completion: @escaping ((Bool) -> Void)) {
+        showDeleteConfirmation(with: message,
+                               tintColor: GroupListViewController.configuration.palette.primary,
+                               completion: completion)
     }
 }
 
 extension GroupDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let delete = UIAction(title: "Delete".local(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+        guard viewModel.shouldShowMenuForCell(at: indexPath) else { return nil }
+        
+        let delete = UIAction(title: "Delete".bundleLocale(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
             guard let self = self else { return }
             if let member = self.viewModel.memeber(at: indexPath) {
-                self.coordinatorDelegate?.delete(member: member, from: self.viewModel.group, completion: { [weak self] success in
-                    if success {
-                        self?.viewModel.delete(itemAt: indexPath)
+                self.delete(with: "Delete member warning".bundleLocale()) { [weak self] shouldDelete in
+                    guard let self = self else { return }
+                    if shouldDelete {
+                        self.coordinatorDelegate?.delete(member: member, from: self.viewModel.group, completion: { [weak self] success in
+                            if success {
+                                self?.viewModel.delete(itemAt: indexPath)
+                            }
+                        })
                     }
-                })
+                }
             }
         }
         
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil) { _ in
-            UIMenu(title: "Actions".local(), children: [delete])
+            UIMenu(title: "Actions".bundleLocale(), children: [delete])
         }
     }
 }

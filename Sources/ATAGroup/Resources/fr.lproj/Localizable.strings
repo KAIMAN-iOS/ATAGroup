@@ -19,7 +19,8 @@
 "groupName" = "nom du groupe";
 "documentName" = "nom du document";
 "groupType" = "type de groupe";
-"Delete group warning" = "Vous êtes sur le point de supprimer ce groupe. Vouez vous continuer ?";
+"Delete group warning" = "Vous êtes sur le point de supprimer ce groupe. Voulez vous continuer ?";
+"Delete member warning" = "Vous êtes sur le point de supprimer ce membre. Voulez vous continuer ?";
 "Delete group" = "Confirmation de suppression";
 "Cancel" = "Annuler";
 "Delete" = "Supprimer";
@@ -30,3 +31,5 @@
 "owner" = "propriétaire";
 "suspended" = "suspendu";
 "incomplete" = "incomplet";
+"member already exist in group" = "Ce membre existe déjà dans ce groupe";
+"Actions" = "Actions";

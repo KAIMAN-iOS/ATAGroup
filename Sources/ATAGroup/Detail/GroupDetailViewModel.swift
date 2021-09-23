@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class GroupDetailViewModel {
     enum Section: Int, Hashable, CaseIterable {
@@ -179,6 +180,16 @@ class GroupDetailViewModel {
             snap.reloadSections([.documentImage])
 //            snap.insertItems([.documentImage(self.group.image.imageName)], afterItem: .header(self.group))
             self.dataSource.apply(snap, animatingDifferences: false, completion: completion)
+        }
+    }
+    
+    func shouldShowMenuForCell(at indexPath: IndexPath) -> Bool {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+            return false
+        }
+        switch item {
+        case .member: return true
+        default: return false
         }
     }
 }
