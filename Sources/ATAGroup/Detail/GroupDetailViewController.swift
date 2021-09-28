@@ -41,6 +41,9 @@ class GroupDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add member".bundleLocale(), style: .plain, target: self, action: #selector(addMember))
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font : UIFont.applicationFont(ofSize: 16.0),
                                                                    .foregroundColor : GroupListViewController.configuration.palette.mainTexts], for: .normal)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font : UIFont.applicationFont(ofSize: 16.0),
+                                                                   .foregroundColor : GroupListViewController.configuration.palette.inactive], for: .disabled)
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.isAdmin
     }
     
     @objc private func addMember() {
