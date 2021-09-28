@@ -58,9 +58,11 @@ class GroupDetailViewModel {
         }
     }
     private(set) var group: Group!
+    var isAdmin: Bool = false
     private var sections: [Section] = []
-    init(group: Group) {
+    init(group: Group, isAdmin: Bool) {
         self.group = group
+        self.isAdmin = isAdmin
     }
     
     // MARK: - DataSource Diffable
@@ -78,7 +80,7 @@ class GroupDetailViewModel {
             switch model {
             case .header(let group):
                 guard let cell: GroupDetailHeaderCell = collectionView.automaticallyDequeueReusableCell(forIndexPath: indexPath) else { return nil }
-                cell.configure(group)
+                cell.configure(group, isAdmin: self.isAdmin)
                 cell.deleteDelegate = self.deleteDelegate
                 return cell
                 

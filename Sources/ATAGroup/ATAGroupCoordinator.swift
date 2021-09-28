@@ -34,7 +34,7 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
         super.init(router: router)
         self.availableGroupTypes = availableGroupTypes
         self.dataSource = dataSource
-        controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self)
+        controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self, groupDataSource: dataSource)
         
         dataSource
             .refresh()
@@ -150,7 +150,7 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     }
     
     func showDetail(for group: Group) {
-        let ctrl = GroupDetailViewController.create(group: group, delegate: self, memberDelegate: self)
+        let ctrl = GroupDetailViewController.create(group: group, delegate: self, memberDelegate: self, groupDataSource: dataSource)
         router.push(ctrl, animated: true, completion: nil)
     }
     
@@ -184,5 +184,6 @@ extension String {
     }
 }
 
-
-
+extension Group {
+    var adminEmail: String? { members.first(where: {$0.isAdmin ?? false})?.email }
+}
