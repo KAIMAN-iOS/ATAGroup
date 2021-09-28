@@ -108,7 +108,7 @@ extension GroupListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let group = datasource.itemIdentifier(for: indexPath), group.members.getAdminEmail() ?? "" == groupDataSource?.currentUserEmail else { return nil }
+        guard let group = datasource.itemIdentifier(for: indexPath), group.members.adminEmail == groupDataSource?.currentUserEmail else { return nil }
         
         let delete = UIAction(title: "Delete".bundleLocale(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
             self?.delete(itemAt: indexPath)

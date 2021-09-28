@@ -3,7 +3,6 @@ import KCoordinatorKit
 import PromiseKit
 import ATAConfiguration
 import FittedSheets
-import Invalidating
 
 public protocol GroupDatasource: NSObjectProtocol {
     func refresh() -> Promise<[Group]>
@@ -186,8 +185,8 @@ extension String {
 }
 
 extension Array where Element == GroupMember {
-    func getAdminEmail() -> String? {
-        return self.first(where: {$0.isAdmin ?? false})?.email ?? nil
+    var adminEmail: String? {
+        return self.first(where: {$0.isAdmin ?? false})?.email
     }
 }
 

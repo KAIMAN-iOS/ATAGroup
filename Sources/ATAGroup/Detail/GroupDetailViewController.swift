@@ -13,7 +13,7 @@ class GroupDetailViewController: UIViewController {
     
     static func create(group: Group, delegate: GroupCoordinatorDelegate, memberDelegate: AddMemberDelegate, groupDataSource: GroupDatasource) -> GroupDetailViewController {
         let ctrl: GroupDetailViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "GroupDetailViewController") as! GroupDetailViewController
-        ctrl.viewModel = GroupDetailViewModel(group: group, isAdmin: groupDataSource.currentUserEmail == group.members.getAdminEmail())
+        ctrl.viewModel = GroupDetailViewModel(group: group, isAdmin: groupDataSource.currentUserEmail == group.members.adminEmail)
         ctrl.viewModel.memberDelegate = memberDelegate
         ctrl.coordinatorDelegate = delegate
         ctrl.title = group.name
