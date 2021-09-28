@@ -12,14 +12,16 @@ import Ampersand
 
 class GroupListViewController: UIViewController {
     static var configuration: ATAConfiguration!
-    static func create(groups: [Group], configuration: ATAConfiguration, delegate: GroupCoordinatorDelegate) -> GroupListViewController {
+    static func create(groups: [Group], configuration: ATAConfiguration, delegate: GroupCoordinatorDelegate, groupDataSource: GroupDatasource) -> GroupListViewController {
         GroupListViewController.configuration = configuration
         let ctrl: GroupListViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "GroupListViewController") as! GroupListViewController
         ctrl.viewModel = GroupListViewModel(groups: groups)
         ctrl.coordinatorDelegate = delegate
+        ctrl.groupDataSource = groupDataSource
         return ctrl
     }
     weak var coordinatorDelegate: GroupCoordinatorDelegate?
+    weak var groupDataSource: GroupDatasource?
     
     var viewModel: GroupListViewModel!
     @IBOutlet weak var collectionView: UICollectionView!  {
@@ -106,6 +108,8 @@ extension GroupListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let group = datasource.itemIdentifier(for: indexPath), group.members.getAdminEmail() ?? "" == groupDataSource?.currentUserEmail else { return nil }
+        
         let delete = UIAction(title: "Delete".bundleLocale(), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
             self?.delete(itemAt: indexPath)
         }

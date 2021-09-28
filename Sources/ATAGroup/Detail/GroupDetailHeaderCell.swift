@@ -34,6 +34,12 @@ class GroupDetailHeaderCell: UICollectionViewCell {
         }
     }
 
+    var isAdmin: Bool = false {
+        didSet {
+            deleteButton.isEnabled = isAdmin
+            deleteButton.setTitleColor(isAdmin ? GroupListViewController.configuration.palette.primary : GroupListViewController.configuration.palette.inactive, for: .normal)
+        }
+    }
     @IBOutlet weak var dateLabel: UILabel!
     weak var deleteDelegate: DetailGroupDeleteDelegate?
     @IBAction func delete() {
@@ -54,9 +60,10 @@ class GroupDetailHeaderCell: UICollectionViewCell {
     }
 
     private var group: Group!
-    func configure(_ group: Group) {
+    func configure(_ group: Group, isAdmin: Bool = false) {
         contentView.backgroundColor = GroupListViewController.configuration.palette.background
         self.group = group
+        self.isAdmin = isAdmin
         stackView.setCustomSpacing(8, after: dateLabel.superview!)
         stateContainer.backgroundColor = group.type.color
         state.set(text: group.type.name.uppercased(), for: .caption2, textColor: .white)
