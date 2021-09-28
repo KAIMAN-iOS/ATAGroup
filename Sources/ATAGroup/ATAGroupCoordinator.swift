@@ -184,11 +184,6 @@ extension String {
     }
 }
 
-extension Array where Element == GroupMember {
-    var adminEmail: String? {
-        return self.first(where: {$0.isAdmin ?? false})?.email
-    }
+extension Group {
+    var adminEmail: String? { members.first(where: {$0.isAdmin ?? false})?.email }
 }
-
-
-
