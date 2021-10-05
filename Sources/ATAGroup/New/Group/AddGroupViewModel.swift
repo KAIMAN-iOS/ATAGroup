@@ -55,7 +55,10 @@ class AddGroupViewModel {
     func update(_ groupType: GroupType) {
         group.type = groupType
         var snap = dataSource.snapshot()
-        snap.reloadItems([.groupType(groupType)])
+        if snap.itemIdentifiers.contains(.groupType(groupType)) {
+            snap.deleteItems([.groupType(groupType)])
+            snap.insertItems([.groupType(groupType)], beforeItem: .groupName(group.name))
+        }
         if snap.sectionIdentifiers.contains(.document) && groupType.mandatoryDocument == false {
             snap.deleteSections([.document])
         } else if snap.sectionIdentifiers.contains(.document) == false && groupType.mandatoryDocument == true {

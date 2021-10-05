@@ -97,7 +97,9 @@ extension AddGroupViewController: PhotoDelegate {
 extension AddGroupViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? GroupTextCell, cell.fieldType == .groupType, viewModel.selectPicker == true else { return }
-        cell.ataTextfield.textField.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.005, execute: {
+            cell.ataTextfield.textField.becomeFirstResponder()
+        })
     }
 }
 
