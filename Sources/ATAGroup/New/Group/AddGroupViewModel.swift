@@ -55,7 +55,15 @@ class AddGroupViewModel {
     func update(_ groupType: GroupType) {
         group.type = groupType
         var snap = dataSource.snapshot()
-        snap.reloadItems([.groupType(groupType)])
+        if snap.itemIdentifiers.contains(.groupType(groupType)) {
+            // Fix pour la disparition du placeholder
+            if #available(iOS 15.0, *) {
+                snap.reconfigureItems([.groupType(groupType)])
+            } else {
+                // Fallback on earlier versions
+                snap.reloadItems([.groupType(groupType)])
+            }
+        }
         if snap.sectionIdentifiers.contains(.document) && groupType.mandatoryDocument == false {
             snap.deleteSections([.document])
         } else if snap.sectionIdentifiers.contains(.document) == false && groupType.mandatoryDocument == true {
