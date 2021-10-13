@@ -96,7 +96,7 @@ public struct GroupType: Codable {
         UIColor.init(hexString: hexColor, defaultReturn: UIColor.random())
     }
     
-    init (id: Int,
+    public init(id: Int,
           hexColor: String,
           name: String,
           sortIndex: Int,
