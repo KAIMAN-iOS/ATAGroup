@@ -97,11 +97,11 @@ public struct GroupType: Codable {
     }
     
     public init(id: Int,
-          hexColor: String,
-          name: String,
-          sortIndex: Int,
-          mandatoryDocument: Bool,
-          isAlertGroup: Bool = false) {
+                hexColor: String,
+                name: String,
+                sortIndex: Int,
+                mandatoryDocument: Bool,
+                isAlertGroup: Bool = false) {
         self.id = id
         self.hexColor = hexColor
         self.name = name
