@@ -96,12 +96,12 @@ public struct GroupType: Codable {
         UIColor.init(hexString: hexColor, defaultReturn: UIColor.random())
     }
     
-    init (id: Int,
-          hexColor: String,
-          name: String,
-          sortIndex: Int,
-          mandatoryDocument: Bool,
-          isAlertGroup: Bool = false) {
+    public init(id: Int,
+                hexColor: String,
+                name: String,
+                sortIndex: Int,
+                mandatoryDocument: Bool,
+                isAlertGroup: Bool = false) {
         self.id = id
         self.hexColor = hexColor
         self.name = name
