@@ -44,20 +44,23 @@ public struct GroupMember: Codable {
     public var name: String?
     public var vehicle: String?
     public var location: String?
+    public var city: String?
     public var status: MemberStatus
     var isAdmin: Bool?
     var isOwner: Bool { isAdmin ?? false }
     
     public init(email: String,
-         name: String? = nil,
-         vehicle: String? = nil,
-         location: String? = nil,
-         status: MemberStatus = .pending) {
+                name: String? = nil,
+                vehicle: String? = nil,
+                location: String? = nil,
+                city: String? = nil,
+                status: MemberStatus = .pending) {
         self.id = UUID().uuidString
         self.email = email
         self.name = name
         self.vehicle = vehicle
         self.location = location
+        self.city = city
         self.status = status
     }
     
