@@ -20,6 +20,24 @@ class GroupListViewController: UIViewController {
         ctrl.groupDataSource = groupDataSource
         return ctrl
     }
+    
+    @IBOutlet weak var noAlertGrpView: UIView!  {
+        didSet {
+            noAlertGrpView.cornerRadius = 24
+            noAlertGrpView.isHidden = true
+        }
+    }
+    @IBOutlet weak var noAlertGrpImageView: UIImageView!  {
+        didSet {
+            noAlertGrpImageView.image = UIImage(named: "error", in: .module, compatibleWith: nil)!
+        }
+    }
+    @IBOutlet weak var noAlertGrpLabel: UILabel!  {
+        didSet {
+            noAlertGrpLabel.set(text: "create alert group".bundleLocale())
+        }
+    }
+    
     weak var coordinatorDelegate: GroupCoordinatorDelegate?
     weak var groupDataSource: GroupDatasource?
     
@@ -58,9 +76,20 @@ class GroupListViewController: UIViewController {
                                                                    .foregroundColor : GroupListViewController.configuration.palette.mainTexts], for: .normal)
     }
     
+    func updateNoAlertGrpView(for groups: [Group]) {
+        let hasAlertGrp = groups.filter({ $0.isAlertGroup }).count > 0
+        noAlertGrpView.isHidden = hasAlertGrp
+        if hasAlertGrp {
+            collectionView.contentInset.bottom = 0
+        } else {
+            collectionView.contentInset.bottom = noAlertGrpView.frame.height + 32
+        }
+    }
+    
     func update(_ groups: [Group]) {
         viewModel.update(groups)
         refreshComplete()
+        updateNoAlertGrpView(for: groups)
     }
     
     @objc func addNewGroup() {

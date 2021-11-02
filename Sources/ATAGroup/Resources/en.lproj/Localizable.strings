@@ -33,3 +33,4 @@
 "incomplete" = "incomplet";
 "member already exist in group" = "Ce membre existe déjà dans ce groupe";
 "Actions" = "Actions";
+"create alert group" = "Please create or join an alert group";
