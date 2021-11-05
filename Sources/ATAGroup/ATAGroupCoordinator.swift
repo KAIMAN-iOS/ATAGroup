@@ -30,11 +30,12 @@ public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
                 availableGroupTypes: [GroupType],
                 dataSource: GroupDatasource,
                 configuration: ATAConfiguration,
-                router: RouterType) {
+                router: RouterType,
+                showNoAlertGroup: Bool = false) {
         super.init(router: router)
         self.availableGroupTypes = availableGroupTypes
         self.dataSource = dataSource
-        controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self, groupDataSource: dataSource)
+        controller = GroupListViewController.create(groups: groups, configuration: configuration, delegate: self, groupDataSource: dataSource, showNoAlertGroup: showNoAlertGroup)
         
         dataSource
             .refresh()

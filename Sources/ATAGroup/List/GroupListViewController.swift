@@ -12,15 +12,17 @@ import Ampersand
 
 class GroupListViewController: UIViewController {
     static var configuration: ATAConfiguration!
-    static func create(groups: [Group], configuration: ATAConfiguration, delegate: GroupCoordinatorDelegate, groupDataSource: GroupDatasource) -> GroupListViewController {
+    static func create(groups: [Group], configuration: ATAConfiguration, delegate: GroupCoordinatorDelegate, groupDataSource: GroupDatasource, showNoAlertGroup: Bool = false) -> GroupListViewController {
         GroupListViewController.configuration = configuration
         let ctrl: GroupListViewController = UIStoryboard(name: "ATAGroup", bundle: Bundle.module).instantiateViewController(identifier: "GroupListViewController") as! GroupListViewController
         ctrl.viewModel = GroupListViewModel(groups: groups)
         ctrl.coordinatorDelegate = delegate
         ctrl.groupDataSource = groupDataSource
+        ctrl.showNoAlertGroup = showNoAlertGroup
         return ctrl
     }
     
+    var showNoAlertGroup: Bool = false
     @IBOutlet weak var noAlertGrpView: UIView!  {
         didSet {
             noAlertGrpView.cornerRadius = 24
@@ -63,6 +65,16 @@ class GroupListViewController: UIViewController {
         startLoading()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if noAlertGrpView.isHidden == false {
+            UIView.animate(withDuration: 0.3, delay: 3, options: .curveEaseInOut, animations: { [weak self] in
+                self?.noAlertGrpView.alpha = 0
+            }, completion: { [weak self] _ in
+                self?.noAlertGrpView.isHidden = true
+            })
+        }
+    }
+    
     private func startLoading() {
         let activity = UIActivityIndicatorView(style: .medium)
         activity.color = GroupListViewController.configuration.palette.primary
@@ -77,12 +89,11 @@ class GroupListViewController: UIViewController {
     }
     
     func updateNoAlertGrpView(for groups: [Group]) {
-        let hasAlertGrp = groups.filter({ $0.isAlertGroup }).count > 0
-        noAlertGrpView.isHidden = hasAlertGrp
-        if hasAlertGrp {
-            collectionView.contentInset.bottom = 0
-        } else {
+        noAlertGrpView.isHidden = !showNoAlertGroup
+        if showNoAlertGroup {
             collectionView.contentInset.bottom = noAlertGrpView.frame.height + 32
+        } else {
+            collectionView.contentInset.bottom = 0
         }
     }
     
