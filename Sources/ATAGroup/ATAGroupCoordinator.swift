@@ -117,8 +117,9 @@ extension ATAGroupCoordinator: GroupDatasource {
         dataSource
             .add(member: member, to: group)
             .get { [weak self] member in
-                self?.router.popModule(animated: true)
-                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(member: member, to: group)
+//                self?.router.popModule(animated: true)
+//                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(member: member, to: group)
+                (self?.router.navigationController.viewControllers.first(where: {$0 is GroupListViewController}) as? GroupListViewController)?.didAdd(member: member, to: group)
             }
     }
     
@@ -126,8 +127,9 @@ extension ATAGroupCoordinator: GroupDatasource {
         dataSource
             .remove(member: member, from: group)
             .get { [weak self] success in
-                self?.router.popModule(animated: true)
-                (self?.router.navigationController.topViewController as? GroupListViewController)?.didRemove(member: member, from: group)
+                //self?.router.popModule(animated: true)
+                //(self?.router.navigationController.topViewController as? GroupListViewController)?.didRemove(member: member, from: group)
+                (self?.router.navigationController.viewControllers.first(where: {$0 is GroupListViewController}) as? GroupListViewController)?.didRemove(member: member, from: group)
             }
     }
 }
