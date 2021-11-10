@@ -186,7 +186,7 @@ class GroupDetailViewModel {
     }
     
     func shouldShowMenuForCell(at indexPath: IndexPath) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+        guard let item = dataSource.itemIdentifier(for: indexPath), isAdmin else {
             return false
         }
         switch item {
