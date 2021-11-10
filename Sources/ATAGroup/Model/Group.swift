@@ -190,10 +190,11 @@ public struct Group: Codable {
 
 extension Group: Hashable {
     public func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
         hasher.combine(type.name)
         hasher.combine(type.hexColor)
         hasher.combine(name)
-        hasher.combine(members)
+//        hasher.combine(members)
         hasher.combine(image)
     }
 }

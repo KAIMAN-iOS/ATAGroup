@@ -26,20 +26,23 @@ class GroupListViewModel {
     
     func didAdd(_ group: Group) {
         groups.append(group)
-        applySnapshot(in: dataSource)
+        //applySnapshot(in: dataSource)
+        update(groups)
     }
     
     func didUpdate(_ group: Group) {
         groups.removeAll(where: { $0 == group })
         groups.append(group)
-        applySnapshot(in: dataSource)
+        //applySnapshot(in: dataSource)
+        update(groups)
     }
     
     func delete(group: Group) {
         var snap = dataSource.snapshot()
         snap.deleteItems([group])
         groups.removeAll(where: { $0 == group })
-        applySnapshot(in: dataSource)
+        update(groups)
+        //applySnapshot(in: dataSource)
     }
     
     func didAdd(member: GroupMember, to group: Group) {
@@ -74,19 +77,31 @@ class GroupListViewModel {
         return dataSource
     }
     
-    func applySnapshot(in dataSource: DataSource, animatingDifferences: Bool = false, completion: (() -> Void)? = nil) {
-        var snap = SnapShot()
-        snap.deleteAllItems()
-        sections.removeAll()
-        snap.appendSections([.main])
-        // add items here
-        snap.appendItems(groups.sorted(), toSection: .main)
+    func applySnapshot(_ snapshot: SnapShot? = nil, in dataSource: DataSource, animatingDifferences: Bool = false, completion: (() -> Void)? = nil) {
+        var snap = snapshot ?? dataSource.snapshot()
+        if snap.itemIdentifiers.isEmpty {
+            snap.deleteAllItems()
+            sections.removeAll()
+            snap.appendSections([.main])
+            // add items here
+            snap.appendItems(groups.sorted(), toSection: .main)
+        }
+        
         dataSource.apply(snap, animatingDifferences: animatingDifferences, completion: completion)
     }
     
     func update(_ groups: [Group]) {
         self.groups = Array(Set(groups))
-        applySnapshot(in: dataSource)
+        var snap = dataSource.snapshot()
+        guard snap.itemIdentifiers.isEmpty == false else {
+            applySnapshot(in: dataSource)
+            return
+        }
+        
+        snap.deleteAllItems()
+        snap.appendSections([.main])
+        snap.appendItems(groups.sorted(), toSection: .main)
+        applySnapshot(snap, in: dataSource, animatingDifferences: false) {}
     }
     
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
