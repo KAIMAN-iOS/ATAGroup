@@ -194,8 +194,8 @@ extension Group: Hashable {
         hasher.combine(type.name)
         hasher.combine(type.hexColor)
         hasher.combine(name)
-//        hasher.combine(members)
-        hasher.combine(image)
+       // hasher.combine(members)
+     //   hasher.combine(image)
     }
 }
 

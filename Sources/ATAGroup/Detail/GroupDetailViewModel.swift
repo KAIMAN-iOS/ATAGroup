@@ -173,6 +173,12 @@ class GroupDetailViewModel {
         applySnapshot(in: dataSource)
     }
     
+    func update(_ group: Group) {
+        self.group = group
+        self.group.members = group.members
+        applySnapshot(in: dataSource)
+    }
+    
     func updateDocument(with image: UIImage, completion: @escaping (() -> Void)) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

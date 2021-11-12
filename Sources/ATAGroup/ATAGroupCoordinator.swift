@@ -89,6 +89,12 @@ extension ATAGroupCoordinator: GroupDatasource {
             .create(group: group)
             .get { [weak self] group in
                 self?.router.popModule(animated: true)
+                self?.refresh().done { [weak self] groups in
+                    self?.controller.update(groups)
+                }.catch { [weak self] error in
+                    //TODO
+                    self?.controller.refreshComplete()
+                }
 //                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(group)
             }
     }
@@ -119,6 +125,15 @@ extension ATAGroupCoordinator: GroupDatasource {
             .get { [weak self] member in
 //                self?.router.popModule(animated: true)
 //                (self?.router.navigationController.topViewController as? GroupListViewController)?.didAdd(member: member, to: group)
+                self?.refresh().done { [weak self] groups in
+                    guard let updatedGroup = groups.first(where: {$0.id == group.id}) else { return }
+                    (self?.router.navigationController.viewControllers.first(where: {$0 is GroupDetailViewController}) as? GroupDetailViewController)?.update(updatedGroup)
+//                    self?.controller.update(groups)
+                }.catch { [weak self] error in
+                    //TODO
+                    self?.controller.refreshComplete()
+                }
+                
                 (self?.router.navigationController.viewControllers.first(where: {$0 is GroupListViewController}) as? GroupListViewController)?.didAdd(member: member, to: group)
             }
     }

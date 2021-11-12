@@ -53,6 +53,10 @@ class GroupDetailViewController: UIViewController {
     func didAdd(_ member: GroupMember) {
         viewModel.didAdd(member)
     }
+    
+    func update(_ group: Group){
+        viewModel.update(group)
+    }
 }
 
 extension GroupDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
