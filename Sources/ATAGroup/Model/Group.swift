@@ -132,6 +132,7 @@ public struct Group: Codable {
     public var image: CodableImage?
     public var isAlertGroup: Bool { type.isAlertGroup }
     public var channelId: String
+    public var docId: Int?
     
     init(type: GroupType,
          name: String,
@@ -212,3 +213,34 @@ extension Group: Comparable {
 //            && lhs.image == rhs.image
     }
 }
+
+public class UpdateGroupDoc: Codable {
+    
+    var groupId: String = ""
+    var doc_id: Int = 0
+    var groupName: String = ""
+    var image: CodableImage? = nil
+    
+    public init() {}
+    
+    public init(groupId: String, doc_id: Int, groupName: String, image: CodableImage? = nil) {
+        self.groupId = groupId
+        self.doc_id = doc_id
+        self.groupName = groupName
+        self.image = image
+    }
+    
+    public var multipartData: MultipartFormData? {
+        let data = MultipartFormData()
+        try? data.encode(groupId, for: "group_id")
+        try? data.encode(doc_id, for: "doc_id")
+        try? data.encode(groupName, for: "realname")
+        
+        if let image = image?.image,
+           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7) {
+            data.append(imageData, withName: "image", fileName: "image", mimeType: "image/jpg")
+        }
+        return data
+    }
+}
+

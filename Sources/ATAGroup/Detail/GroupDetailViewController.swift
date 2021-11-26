@@ -16,9 +16,11 @@ class GroupDetailViewController: UIViewController {
         ctrl.viewModel = GroupDetailViewModel(group: group, isAdmin: groupDataSource.currentUserEmail == group.adminEmail)
         ctrl.viewModel.memberDelegate = memberDelegate
         ctrl.coordinatorDelegate = delegate
+        ctrl.group = group
         ctrl.title = group.name
         return ctrl
     }
+    var group: Group?
     weak var groupDataSource: GroupDatasource?
     weak var coordinatorDelegate: GroupCoordinatorDelegate?
     var viewModel: GroupDetailViewModel!
@@ -70,9 +72,11 @@ extension GroupDetailViewController: UIImagePickerControllerDelegate, UINavigati
             guard let image = (info[.editedImage] ?? info[.originalImage]) as? UIImage else {
                 return
             }
-            self.viewModel.updateDocument(with: image) { [weak self] in
+            self.viewModel.updateDocument(with: image, groupDataSource: self.groupDataSource) { [weak self] in
                 self?.collectionView.scrollRectToVisible(CGRect(origin: CGPoint(x: 0, y: -1), size: .zero), animated: true)
             }
+            guard let group = self.group else { return }
+            self.coordinatorDelegate?.updateDoc(group: group, image: image)
         }
     }
 }

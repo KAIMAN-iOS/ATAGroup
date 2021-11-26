@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import ImageExtension
 
 class GroupDetailViewModel {
     enum Section: Int, Hashable, CaseIterable {
@@ -179,7 +180,7 @@ class GroupDetailViewModel {
         applySnapshot(in: dataSource)
     }
     
-    func updateDocument(with image: UIImage, completion: @escaping (() -> Void)) {
+    func updateDocument(with image: UIImage, groupDataSource: GroupDatasource? = nil, completion: @escaping (() -> Void)) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             var snap = self.dataSource.snapshot()

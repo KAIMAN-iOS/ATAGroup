@@ -12,6 +12,7 @@ public protocol GroupDatasource: NSObjectProtocol {
     func add(member: String, to group: Group) -> Promise<GroupMember>
     func remove(member: GroupMember, from group: Group) -> Promise<Bool>
     var currentUserEmail: String { get }
+    func updateDoc(group: Group, image: UIImage) -> Promise<Bool>
 }
 
 protocol GroupCoordinatorDelegate: NSObjectProtocol {
@@ -20,6 +21,7 @@ protocol GroupCoordinatorDelegate: NSObjectProtocol {
     func addNewMember(in group: Group)
     func delete(group: Group, completion: @escaping ((Bool) -> Void))
     func delete(member: GroupMember, from group: Group, completion: @escaping ((Bool) -> Void))
+    func updateDoc(group: Group, image: UIImage)
 }
 
 public class ATAGroupCoordinator<DeepLink>: Coordinator<DeepLink> {
@@ -108,6 +110,14 @@ extension ATAGroupCoordinator: GroupDatasource {
             }
     }
     
+    public func updateDoc(group: Group, image: UIImage) -> Promise<Bool> {
+        dataSource
+            .updateDoc(group: group, image: image)
+            .get { [weak self] success in
+                print(success)
+            }
+    }
+    
     public func delete(group: Group) -> Promise<Bool> {
         dataSource
             .delete(group: group)
@@ -175,6 +185,19 @@ extension ATAGroupCoordinator: GroupCoordinatorDelegate {
     func addNewMember(in group: Group) {
         let ctrl: AddMemberViewController = AddMemberViewController.create(group: group, delegate: self)
         presentController(ctrl)
+    }
+    
+    func updateDoc(group: Group, image: UIImage) {
+        updateDoc(group: group, image: image)
+            .done {[weak self] success in
+//                print(success)
+                self?.refresh().done { groups in
+                    guard let listController = self?.router.navigationController.viewControllers.first(where: {$0 is GroupListViewController}) as? GroupListViewController else { return }
+                    listController.update(groups)
+                }.catch { _ in
+                    print("error")
+                }
+            }
     }
     
     func delete(group: Group, completion: @escaping ((Bool) -> Void)) {
