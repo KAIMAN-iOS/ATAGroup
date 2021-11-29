@@ -182,8 +182,9 @@ public struct Group: Codable {
             try? data.encode(members, for: "members")
         }
         if let image = image?.image,
-           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7) {
-            data.append(imageData, withName: "image", fileName: "image", mimeType: "image/jpg")
+           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7),
+           let imageName = self.image?.imageName {
+            data.append(imageData, withName: imageName, fileName: imageName, mimeType: "image/jpg")
         }
         return data
     }
@@ -195,6 +196,7 @@ extension Group: Hashable {
         hasher.combine(type.name)
         hasher.combine(type.hexColor)
         hasher.combine(name)
+        hasher.combine(docId)
        // hasher.combine(members)
      //   hasher.combine(image)
     }
@@ -218,15 +220,15 @@ public class UpdateGroupDoc: Codable {
     
     var groupId: String = ""
     var doc_id: Int = 0
-    var groupName: String = ""
+    var docName: String = ""
     var image: CodableImage? = nil
     
     public init() {}
     
-    public init(groupId: String, doc_id: Int, groupName: String, image: CodableImage? = nil) {
+    public init(groupId: String, doc_id: Int, docName: String, image: CodableImage? = nil) {
         self.groupId = groupId
         self.doc_id = doc_id
-        self.groupName = groupName
+        self.docName = docName
         self.image = image
     }
     
@@ -234,11 +236,12 @@ public class UpdateGroupDoc: Codable {
         let data = MultipartFormData()
         try? data.encode(groupId, for: "group_id")
         try? data.encode(doc_id, for: "doc_id")
-        try? data.encode(groupName, for: "realname")
+        try? data.encode(docName, for: "realname")
         
         if let image = image?.image,
-           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7) {
-            data.append(imageData, withName: "image", fileName: "image", mimeType: "image/jpg")
+           let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7),
+           let imageName = self.image?.imageName {
+            data.append(imageData, withName: imageName, fileName: imageName, mimeType: "image/jpg")
         }
         return data
     }
