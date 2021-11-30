@@ -219,13 +219,13 @@ extension Group: Comparable {
 public class UpdateGroupDoc: Codable {
     
     var groupId: String = ""
-    var doc_id: Int = 0
+    var doc_id: Int? = nil
     var docName: String = ""
     var image: CodableImage? = nil
     
     public init() {}
     
-    public init(groupId: String, doc_id: Int, docName: String, image: CodableImage? = nil) {
+    public init(groupId: String, doc_id: Int?, docName: String, image: CodableImage? = nil) {
         self.groupId = groupId
         self.doc_id = doc_id
         self.docName = docName
