@@ -32,11 +32,13 @@ class GroupListViewController: UIViewController {
     @IBOutlet weak var noAlertGrpImageView: UIImageView!  {
         didSet {
             noAlertGrpImageView.image = UIImage(named: "error", in: .module, compatibleWith: nil)!
+            noAlertGrpImageView.tintColor = .white
         }
     }
     @IBOutlet weak var noAlertGrpLabel: UILabel!  {
         didSet {
             noAlertGrpLabel.set(text: "create alert group".bundleLocale())
+            noAlertGrpLabel.textColor = .white
         }
     }
     
@@ -67,7 +69,7 @@ class GroupListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if noAlertGrpView.isHidden == false {
-            UIView.animate(withDuration: 0.3, delay: 3, options: .curveEaseInOut, animations: { [weak self] in
+            UIView.animate(withDuration: 0.3, delay: 6, options: .curveEaseInOut, animations: { [weak self] in
                 self?.noAlertGrpView.alpha = 0
             }, completion: { [weak self] _ in
                 self?.noAlertGrpView.isHidden = true
