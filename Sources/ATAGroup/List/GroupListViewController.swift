@@ -27,18 +27,19 @@ class GroupListViewController: UIViewController {
         didSet {
             noAlertGrpView.cornerRadius = 24
             noAlertGrpView.isHidden = true
+            noAlertGrpView.backgroundColor = GroupListViewController.configuration.palette.primary
         }
     }
     @IBOutlet weak var noAlertGrpImageView: UIImageView!  {
         didSet {
             noAlertGrpImageView.image = UIImage(named: "error", in: .module, compatibleWith: nil)!
-            noAlertGrpImageView.tintColor = .white
+            noAlertGrpImageView.tintColor = GroupListViewController.configuration.palette.textOnPrimary
         }
     }
     @IBOutlet weak var noAlertGrpLabel: UILabel!  {
         didSet {
-            noAlertGrpLabel.set(text: "create alert group".bundleLocale())
-            noAlertGrpLabel.textColor = .white
+            noAlertGrpLabel.set(text: "create alert group".bundleLocale(), for: .footnote)
+            noAlertGrpLabel.textColor = GroupListViewController.configuration.palette.textOnPrimary
         }
     }
     
