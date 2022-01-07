@@ -21,6 +21,24 @@ class GroupListViewController: UIViewController {
         ctrl.showNoAlertGroup = showNoAlertGroup
         return ctrl
     }
+    // no groups container
+    @IBOutlet weak var noGroupContainer: UIStackView! {
+        didSet {
+            noGroupContainer.isHidden = true
+        }
+    }
+    @IBOutlet weak var noGroupImage: UIImageView! {
+        didSet {
+            noGroupImage.tintColor = GroupListViewController.configuration.palette.inactive
+        }
+    }
+    @IBOutlet weak var noGroupLabel: UILabel! {
+        didSet {
+            noGroupLabel.set(text: "no group label".bundleLocale(),
+                             for: .subheadline,
+                             textColor: GroupListViewController.configuration.palette.inactive)
+        }
+    }
     
     var showNoAlertGroup: Bool = false
     @IBOutlet weak var noAlertGrpView: UIView!  {
@@ -89,6 +107,7 @@ class GroupListViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+ add new group".bundleLocale(), style: .plain, target: self, action: #selector(addNewGroup))
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font : UIFont.applicationFont(ofSize: 16.0),
                                                                    .foregroundColor : GroupListViewController.configuration.palette.mainTexts], for: .normal)
+        noGroupContainer.isHidden = viewModel.groups.isEmpty == false
     }
     
     func updateNoAlertGrpView(for groups: [Group]) {

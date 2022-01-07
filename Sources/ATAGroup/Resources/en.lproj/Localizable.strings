@@ -34,3 +34,4 @@
 "member already exist in group" = "Ce membre existe déjà dans ce groupe";
 "Actions" = "Actions";
 "create alert group" = "Please create or join an alert group";
+"no group label" = "It's seems empty here.\n\nHit the \"+ add new group\ to start sharing";

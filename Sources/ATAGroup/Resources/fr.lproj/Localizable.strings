@@ -34,3 +34,4 @@
 "member already exist in group" = "Ce membre existe déjà dans ce groupe";
 "Actions" = "Actions";
 "create alert group" = "Veuillez créer ou rejoindre un groupe de type ALERTE pour configurer votre bouton SOS";
+"no group label" = "Vous semblez bien seul ici.\n\Partagez et discutez avec vos collègues en créant un nouveau groupe à l'aide du bouton \"+ Ajouter un groupe\"";

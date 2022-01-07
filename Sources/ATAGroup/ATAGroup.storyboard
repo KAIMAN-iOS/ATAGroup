@@ -172,16 +172,34 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="73e-Ew-xLw">
+                                <rect key="frame" x="40" y="372" width="334" height="152.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alone" translatesAutoresizingMaskIntoConstraints="NO" id="Qcv-hG-pw9">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="130"/>
+                                        <color key="tintColor" red="0.34509339929999999" green="0.34509563450000003" blue="0.3451014161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-K1-Zfn">
+                                        <rect key="frame" x="0.0" y="138" width="334" height="14.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="28a-6W-MDX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Dhy-90-dYY" firstAttribute="leading" secondItem="28a-6W-MDX" secondAttribute="leading" id="2CZ-7c-olh"/>
+                            <constraint firstItem="73e-Ew-xLw" firstAttribute="leading" secondItem="28a-6W-MDX" secondAttribute="leading" constant="40" id="Eya-0l-VWB"/>
                             <constraint firstItem="Dhy-90-dYY" firstAttribute="top" secondItem="28a-6W-MDX" secondAttribute="top" id="FHX-IX-j0M"/>
                             <constraint firstAttribute="bottom" secondItem="Dhy-90-dYY" secondAttribute="bottom" id="FKQ-uF-ZEq"/>
                             <constraint firstItem="Dhy-90-dYY" firstAttribute="trailing" secondItem="28a-6W-MDX" secondAttribute="trailing" id="XtH-i1-0hl"/>
                             <constraint firstItem="28a-6W-MDX" firstAttribute="trailing" secondItem="K2R-Ic-Dvi" secondAttribute="trailing" constant="16" id="bOx-Uj-pDL"/>
                             <constraint firstItem="K2R-Ic-Dvi" firstAttribute="leading" secondItem="28a-6W-MDX" secondAttribute="leading" constant="16" id="nKO-df-kCV"/>
+                            <constraint firstItem="28a-6W-MDX" firstAttribute="trailing" secondItem="73e-Ew-xLw" secondAttribute="trailing" constant="40" id="qyy-2f-P8n"/>
+                            <constraint firstItem="73e-Ew-xLw" firstAttribute="centerY" secondItem="lU4-DI-zf9" secondAttribute="centerY" id="wmi-P2-C0K"/>
                             <constraint firstItem="28a-6W-MDX" firstAttribute="bottom" secondItem="K2R-Ic-Dvi" secondAttribute="bottom" constant="16" id="wnq-zc-ODg"/>
                         </constraints>
                     </view>
@@ -190,6 +208,9 @@
                         <outlet property="noAlertGrpImageView" destination="CCD-B5-IMU" id="Qyf-eG-Ihd"/>
                         <outlet property="noAlertGrpLabel" destination="7Lb-hh-zAK" id="ewN-HU-UKM"/>
                         <outlet property="noAlertGrpView" destination="K2R-Ic-Dvi" id="K1P-3Y-zo6"/>
+                        <outlet property="noGroupContainer" destination="73e-Ew-xLw" id="JgF-Ug-yee"/>
+                        <outlet property="noGroupImage" destination="Qcv-hG-pw9" id="tZR-Bp-4cJ"/>
+                        <outlet property="noGroupLabel" destination="ERo-K1-Zfn" id="xah-dF-ihr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCl-qY-R8c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -771,6 +792,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="alone" width="132" height="130"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="97"/>
         <namedColor name="alert">
             <color red="0.98039215686274506" green="0.28627450980392155" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
