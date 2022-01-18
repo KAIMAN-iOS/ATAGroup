@@ -131,6 +131,7 @@ class GroupListViewController: UIViewController {
     
     func didAdd(_ group: Group) {
         viewModel.didAdd(group)
+        noGroupContainer.isHidden = viewModel.groups.isEmpty == false
     }
     
     func didUpdate(_ group: Group) {
@@ -152,6 +153,7 @@ class GroupListViewController: UIViewController {
     
     func didDelete(_ group: Group) {
         viewModel.delete(group: group)
+        noGroupContainer.isHidden = viewModel.groups.isEmpty == false
     }
     
     func didAdd(member: GroupMember, to group: Group) {

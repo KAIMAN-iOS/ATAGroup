@@ -525,6 +525,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="tY8-Vh-5tL" secondAttribute="bottom" constant="16" id="OZH-f6-vaN"/>
                                                 <constraint firstItem="u4c-XQ-NJ8" firstAttribute="leading" secondItem="tY8-Vh-5tL" secondAttribute="leading" id="eY5-vT-FBc"/>
                                                 <constraint firstItem="tY8-Vh-5tL" firstAttribute="top" secondItem="3QV-ds-gNE" secondAttribute="top" constant="8" id="fZ7-tg-iWJ"/>
+                                                <constraint firstItem="u4c-XQ-NJ8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fSp-HA-VXE" secondAttribute="bottom" constant="8" id="fZR-Kb-7D3"/>
                                                 <constraint firstAttribute="trailing" secondItem="fSp-HA-VXE" secondAttribute="trailing" constant="16" id="pVw-xf-8Bp"/>
                                                 <constraint firstItem="fSp-HA-VXE" firstAttribute="top" secondItem="tY8-Vh-5tL" secondAttribute="top" id="pzr-0u-Rw5"/>
                                                 <constraint firstItem="u4c-XQ-NJ8" firstAttribute="trailing" secondItem="fSp-HA-VXE" secondAttribute="trailing" id="xZ0-ab-fgA"/>
@@ -795,7 +796,7 @@
         <image name="alone" width="132" height="130"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="97"/>
         <namedColor name="alert">
-            <color red="0.98039215686274506" green="0.28627450980392155" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.98400002717971802" green="0.28999999165534973" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="textOnPrimary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
