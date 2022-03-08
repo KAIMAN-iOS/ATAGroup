@@ -193,11 +193,12 @@ class GroupDetailViewModel {
     }
     
     func shouldShowMenuForCell(at indexPath: IndexPath) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath), isAdmin else {
+        guard let item = dataSource.itemIdentifier(for: indexPath),
+                isAdmin else {
             return false
         }
         switch item {
-        case .member: return true
+        case .member(let member): return member.email != memberDelegate.currentUserEmail
         default: return false
         }
     }
