@@ -23,7 +23,6 @@ class GroupDetailDocumentCell: UICollectionViewCell {
             documentIcon.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    @IBOutlet weak var documentName: UILabel!
     @IBOutlet weak var documentUpdateDate: UILabel!
     
     @IBAction func chooseImage() {
@@ -63,7 +62,6 @@ class GroupDetailDocumentCell: UICollectionViewCell {
         contentView.backgroundColor = GroupListViewController.configuration.palette.background
         self.group = group
         image = group.image
-        documentName.set(text: group.documentName, for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)
         documentUpdateDate.isHidden = group.updateDate == nil
         if let date = group.updateDate?.value {
             documentUpdateDate.set(text: DateFormatter.readableDateFormatter.string(from: date), for: .caption2, textColor: GroupListViewController.configuration.palette.mainTexts)

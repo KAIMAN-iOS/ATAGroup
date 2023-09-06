@@ -24,12 +24,11 @@ extension GroupTextCellDelegate {
 
 class GroupTextCell: UICollectionViewCell {
     enum FieldType {
-        case groupName, documentName, groupType
+        case groupName, groupType
         
         var placeholder: String {
             switch self {
             case .groupName: return "groupName".bundleLocale().uppercased()
-            case .documentName: return "documentName".bundleLocale().uppercased()
             case .groupType: return "groupType".bundleLocale().uppercased()
             }
         }
@@ -37,7 +36,7 @@ class GroupTextCell: UICollectionViewCell {
         var keyboardType: UIKeyboardType? {
             switch self {
             case .groupType: return nil
-            case .groupName, .documentName: return .asciiCapable
+            case .groupName: return .asciiCapable
             }
         }
         

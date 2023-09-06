@@ -24,14 +24,7 @@ class GroupDocumentCell: UICollectionViewCell {
             disclaimer.set(text: "legal document".bundleLocale().uppercased(), for: .footnote, textColor: GroupListViewController.configuration.palette.inactive)
         }
     }
-    @IBOutlet weak var ataTextfield: ATATextField!  {
-        didSet {
-            ataTextfield.textField.placeholder = "document name".bundleLocale().uppercased()
-            ataTextfield.textField.delegate = self
-        }
-    }
 
-    var textField: UITextField! { ataTextfield.textField }
     weak var photoDelegate: PhotoDelegate?
     @IBOutlet weak var documentImage: UIImageView!
     
@@ -69,29 +62,7 @@ class GroupDocumentCell: UICollectionViewCell {
     }
     
     func configure(_ group: Group) {
-        textField.set(text: group.documentName, for: .body, textColor: GroupListViewController.configuration.palette.mainTexts)
         image = group.image
-    }
-}
-
-extension GroupDocumentCell: UITextFieldDelegate {
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        textDelegate?.textChanged(textField.text, for: .documentName)
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textDelegate?.willBecomeActive(.documentName)
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textDelegate?.willBecomeActive(.documentName)
-        return true
-    }
-    
-    override func endEditing(_ force: Bool) -> Bool {
-        textDelegate?.willResignActive()
-        return super.endEditing(force)
     }
 }
 

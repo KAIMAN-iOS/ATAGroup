@@ -81,7 +81,6 @@ class AddGroupViewModel {
             if let text = text {
                 group.name = text
             }
-        case .documentName: group.documentName = text
         case .groupType: ()
         }
     }

@@ -123,7 +123,7 @@ public struct Group: Codable {
     public var type: GroupType
     public var name: String
     public var status: GroupStatus = .pending
-    public var documentName: String?
+//    public var documentName: String?
     public var creationDate: CustomDate<ISOMillisecondsDateFormatterDecodable> = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: Date())
     public var updateDate: CustomDate<ISOMillisecondsDateFormatterDecodable>?
     @DecodableDefault.EmptyList public var members: [GroupMember]
@@ -145,7 +145,6 @@ public struct Group: Codable {
         self.type = type
         self.name = name
         self.status = GroupStatus.random
-        self.documentName = documentName
         self.creationDate = CustomDate<ISOMillisecondsDateFormatterDecodable>.init(date: creationDate)
         self.image = CodableImage()
         self.image?.imageURL = documentUrl
@@ -164,8 +163,7 @@ public struct Group: Codable {
     
     public var isValid: Bool {
         name.isEmpty == false
-            && (type.mandatoryDocument == false ||
-                    (documentName?.isEmpty == false && image != nil))
+            && (type.mandatoryDocument == false || image != nil)
     }
     
     public var multipartData: MultipartFormData? {
@@ -174,9 +172,6 @@ public struct Group: Codable {
         try? data.encode(type.id, for: "typeId")
         try? data.encode(name, for: "name")
         try? data.encode(status, for: "status")
-        if let name = documentName {
-            try? data.encode(name, for: "documentName")
-        }
         try? data.encode(creationDate, for: "creationDate")
         if members.count > 0 {
             try? data.encode(members, for: "members")
@@ -220,15 +215,13 @@ public class UpdateGroupDoc: Codable {
     
     var groupId: String = ""
     var doc_id: Int? = nil
-    var docName: String = ""
     var image: CodableImage? = nil
     
     public init() {}
     
-    public init(groupId: String, doc_id: Int?, docName: String, image: CodableImage? = nil) {
+    public init(groupId: String, doc_id: Int?, image: CodableImage? = nil) {
         self.groupId = groupId
         self.doc_id = doc_id
-        self.docName = docName
         self.image = image
     }
     
@@ -236,7 +229,6 @@ public class UpdateGroupDoc: Codable {
         let data = MultipartFormData()
         try? data.encode(groupId, for: "group_id")
         try? data.encode(doc_id, for: "doc_id")
-        try? data.encode(docName, for: "realname")
         
         if let image = image?.image,
            let imageData = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800)).jpegData(compressionQuality: 0.7),
