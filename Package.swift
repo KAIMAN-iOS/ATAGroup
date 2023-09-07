@@ -23,7 +23,7 @@ let package = Package(
         .package(url: "https://github.com/KAIMAN-iOS/KCoordinatorKit", .branch("master")),
         .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.0"),
         .package(url: "https://github.com/KAIMAN-iOS/TextFieldEffects", .branch("master")),
-        .package(url: "https://github.com/gordontucker/FittedSheets", from: "2.0.0"),
+        .package(url: "https://github.com/gordontucker/FittedSheets", .branch("master")),
         .package(url: "https://github.com/mxcl/PromiseKit", from: "6.13.2"),
         .package(url: "https://github.com/KAIMAN-iOS/KStorage", .branch("master")),
     ],
